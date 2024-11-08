@@ -1,0 +1,70 @@
+.register-container {
+    width: 300px;
+    margin: auto;
+    padding: 2em;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+.register-form input {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.register-button {
+    padding: 0.7em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: #45a049;
+}
+
+.login-link {
+    margin-top: 1em;
+    color: #333;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+body {
+    background-image: url(https://static01.nyt.com/images/2019/05/07/smarter-living/07carbonfootprint-slide-SUBX/carbonfootprint-slide-SUBX-jumbo.jpg);
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Fix the image so it doesn’t scroll */
+    background-repeat: no-repeat; /* Prevent tiling */
+    font-family: Arial, sans-serif; /* Optional: set font-family for the page */
+}
+
+.error-message {
+    color: #dc3545; /* Bootstrap's 'danger' color */
+    font-size: 0.875rem; /* Equivalent to .small class */
+    font-weight: 400; /* Regular weight for error text */
+    margin-top: 0.25rem; /* Small space above the message */
+}
