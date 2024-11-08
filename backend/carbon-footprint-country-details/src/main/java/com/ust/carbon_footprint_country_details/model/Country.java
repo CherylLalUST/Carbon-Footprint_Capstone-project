@@ -1,4 +1,4 @@
-package com.ust.carbon_footprint_authentication_service.model;
+package com.ust.carbon_footprint_country_details.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,13 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCredentials {
+public class Country {
 
-    // check again
     @Id
-    private String userId;
-    private String username;
-    private String password;
-    // private String email;
-    // private String role;
+    private String countryId;
+    private String country;
+    private String countryCode;
+    private String year;
+    private Long annualEmissions;
 }
