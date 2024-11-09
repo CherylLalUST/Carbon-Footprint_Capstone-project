@@ -8,6 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/carbonFootprint/authentication")
@@ -37,4 +39,10 @@ public class UserCredentialsController {
         }
         return null;
     }
+
+    @GetMapping("/getUserCredentialsByUsername/{username}")
+    public Optional<UserCredentials> getUserCredentialsByUsername(@PathVariable String username){
+        return userCredentialsService.getUserCredentialsByUsername(username);
+    }
+
 }

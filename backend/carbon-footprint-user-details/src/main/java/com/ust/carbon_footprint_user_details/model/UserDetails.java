@@ -17,6 +17,8 @@ import java.util.Date;
 public class UserDetails {
     @Id
     private String userDetailsId;
+    private String username;
     private int numberOfHousehold;
     private LocalDate dateAdded;
+    private String countryName;
 }

@@ -35,7 +35,7 @@ public class CountryController {
 
     @PostMapping("/addCountry")
     public ResponseEntity<Country> addCountry(@RequestBody Country country){
-        countryService.addCountry(country);
+        country = countryService.addCountry(country);
         return ResponseEntity.status(HttpStatus.OK).body(country);
     }
 
@@ -49,15 +49,9 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.OK).body(returedCountry);
     }
 
-    @GetMapping("/getCountryByName/{name}")
-    public String CountryName(@RequestParam String countryId){
-        Country country= countryService.getCountryById(countryId);
-        if(country!=null){
-            return country.getCountry();
-        }
-        else{
-            return null;
-        }
+    @GetMapping("/getCountryByName/{countryName}")
+    public Country getCountryByName(@PathVariable String countryName){
+        return countryService.getCountryByName(countryName);
     }
 
     @DeleteMapping("/deleteCountry/{id}")

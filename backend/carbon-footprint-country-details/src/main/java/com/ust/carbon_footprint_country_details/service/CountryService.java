@@ -48,7 +48,7 @@ public class CountryService {
         }
     }
 
-    public Country getCountryName(String countryId){
-        return countryRepo.findByCountryId(countryId).orElse(null);
+    public Country getCountryByName(String countryName){
+        return countryRepo.findByCountryName(countryName);
     }
 }

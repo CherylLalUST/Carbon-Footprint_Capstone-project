@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCredentialsResponse {
+public class CountryResponse {
 
-    private String userId;
-    private String username;
-    private String password;
-    // private String email;
-    // private String role;
+    private String countryId;
+    private String countryName;
+    private String countryCode;
+    private String year;
+    private Long annualEmissions;
+
 }

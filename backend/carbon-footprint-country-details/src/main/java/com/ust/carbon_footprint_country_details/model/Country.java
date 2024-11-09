@@ -14,7 +14,7 @@ public class Country {
 
     @Id
     private String countryId;
-    private String country;
+    private String countryName;
     private String countryCode;
     private String year;
     private Long annualEmissions;

@@ -1,8 +1,10 @@
 package com.ust.carbon_footprint_user_details.controller;
 
 import com.ust.carbon_footprint_user_details.model.UserDetails;
+import com.ust.carbon_footprint_user_details.response.FullResponse;
 import com.ust.carbon_footprint_user_details.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,15 @@ public class UserDetailsController {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @GetMapping("/getUserDetailsWithUsernameAndCountryName/{username}/{countryName}")
+    public ResponseEntity<FullResponse> getUserDetailsWithUsernameAndCountryName(@PathVariable String username, @PathVariable String countryName){
+        FullResponse fullResponse = userDetailsService.getUserDetailsWithUsernameAndCountryName(username,countryName);
+        if(fullResponse != null){
+            return ResponseEntity.status(HttpStatus.OK).body(fullResponse);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 
     @PostMapping("/addUserDetails")
     public ResponseEntity<UserDetails> addUserDetails(@RequestBody UserDetails userDetails){

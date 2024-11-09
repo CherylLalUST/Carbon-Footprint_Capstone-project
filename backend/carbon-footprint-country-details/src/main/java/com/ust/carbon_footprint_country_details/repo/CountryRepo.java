@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CountryRepo extends MongoRepository<Country,String> {
+    Country findByCountryName(String countryName);
 }
