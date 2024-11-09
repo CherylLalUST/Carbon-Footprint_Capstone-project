@@ -1,0 +1,50 @@
+package com.ust.carbon_footprint_user_details.controller;
+
+import com.ust.carbon_footprint_user_details.model.UserDetails;
+import com.ust.carbon_footprint_user_details.service.UserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RequestMapping("/carbonFootprint/userDetails")
+@RestController
+public class UserDetailsController {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @PostMapping("/addUserDetails")
+    public ResponseEntity<UserDetails> addUserDetails(@RequestBody UserDetails userDetails){
+        UserDetails savedUserDetails= userDetailsService.addUserDetails(userDetails);
+        return ResponseEntity.ok(savedUserDetails);
+    }
+
+    @GetMapping("/getUserDetailsById/{id}")
+    public ResponseEntity<UserDetails> getAllUserDetailsById(@PathVariable String userDetailsId){
+        UserDetails savedUserDetails= userDetailsService.getUserDetailsById(userDetailsId);
+        return ResponseEntity.ok(savedUserDetails);
+    }
+    @GetMapping("/getAllUserDetails")
+    public ResponseEntity<List<UserDetails>> getAllUserDetails(){
+        List<UserDetails> savedUserDetails= userDetailsService.getAllUserDetails();
+        return ResponseEntity.ok(savedUserDetails);
+    }
+    @PutMapping("/updateUserDetails")
+    public ResponseEntity<?> updateUserDetails(@PathVariable String userDetailsId,@RequestBody UserDetails user){
+        UserDetails updatedUserDetails= userDetailsService.updateUserDetails(userDetailsId,user);
+        if(updatedUserDetails==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedUserDetails);
+    }
+    @DeleteMapping("/deleteUserDetails")
+    public ResponseEntity<String> deleteUserDetails(@PathVariable String userDetailsId){
+        String deletedUserDetails=userDetailsService.deleteUserDetails(userDetailsId);
+        if(deletedUserDetails!=null){
+            return ResponseEntity.ok(deletedUserDetails);
+        }
+        return ResponseEntity.notFound().build();
+    }
+}

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 
 @RestController
 @RequestMapping("/carbonFootprint/country")
@@ -48,6 +49,17 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.OK).body(returedCountry);
     }
 
+    @GetMapping("/getCountryByName/{name}")
+    public String CountryName(@RequestParam String countryId){
+        Country country= countryService.getCountryById(countryId);
+        if(country!=null){
+            return country.getCountry();
+        }
+        else{
+            return null;
+        }
+    }
+
     @DeleteMapping("/deleteCountry/{id}")
     public ResponseEntity<?> deleteCountry(@PathVariable String id){
         Country returedCountry = countryService.deleteCountry(id);
@@ -56,6 +68,8 @@ public class CountryController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(returedCountry);
         }
+
+
 
 
 }

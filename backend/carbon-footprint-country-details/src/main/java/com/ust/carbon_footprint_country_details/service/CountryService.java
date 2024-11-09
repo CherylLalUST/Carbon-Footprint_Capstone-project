@@ -47,4 +47,8 @@ public class CountryService {
             return null;
         }
     }
+
+    public Country getCountryName(String countryId){
+        return countryRepo.findByCountryId(countryId).orElse(null);
+    }
 }
