@@ -19,17 +19,20 @@ function TransportationDetails() {
     setVehicles(updatedVehicles);
   };
 
+  
+
   return (
     <div className="transportation-container">
       <h2>Transportation Details</h2>
-      
+
       <label>
         Number of Vehicles:
-        <input 
-          type="number" 
-          value={numVehicles} 
-          onChange={handleVehicleCountChange} 
-          min="0" 
+        <input
+          type="number"
+          value={numVehicles}
+          onChange={handleVehicleCountChange}
+          min="0"
+          onFocus={(e) => e.target.select()} // Selects all text on focus
         />
       </label>
 
@@ -87,8 +90,11 @@ function TransportationDetails() {
           </div>
         ))}
       </div>
+      <button className="submit-button" onClick={handleSubmit}>
+        Save and Next
+      </button>
     </div>
   );
 }
 
-export default TransportationForm;
+export default TransportationDetails;

@@ -4,7 +4,7 @@ import '../css/UserDetailsForm.css';
 function UserDetailsForm() {
   const [formData, setFormData] = useState({
     username: "",
-    households: "",
+    households: 1,
     country: "",
   });
 
@@ -70,7 +70,8 @@ function UserDetailsForm() {
         min="1"
         value={formData.households}
         onChange={handleFormChange}
-        required
+        required 
+        onFocus={(e) => e.target.select()}
       />
       <div className="error-message">
         {formErrors.households ? "" : "Number of households is required!"}
