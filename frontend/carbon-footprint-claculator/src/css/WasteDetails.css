@@ -1,0 +1,59 @@
+.waste-details-container {
+    width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .waste-details-container h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    color: #333;
+  }
+  
+  .waste-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .waste-item {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+  
+  .waste-item label {
+    flex: 1;
+    font-weight: bold;
+  }
+  
+  .waste-item input {
+    flex: 1;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .waste-item select {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 0.7em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+  

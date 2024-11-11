@@ -91,4 +91,4 @@ function TransportationDetails() {
   );
 }
 
-export default TransportationForm;
+export default TransportationDetails;

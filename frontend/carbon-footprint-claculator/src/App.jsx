@@ -4,6 +4,8 @@ import Register from "./components/Register"
 import Login from "./components/Login"
 import UserDetailsForm from "./components/UserDetailsForm"
 import TransportationDetails from "./components/TransportationDetails"
+import WasteDetails from "./components/WasteDetails"
+import HouseEnergyDetails from "./components/HouseEnergyDetails"
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/user" element={<UserDetailsForm></UserDetailsForm>}></Route>
         <Route path="/transportation" element={<TransportationDetails />}></Route>
+        <Route path="/waste" element={<WasteDetails />}></Route>
+        <Route path="/houseenergy" element={<HouseEnergyDetails />}></Route>
       </Routes>
       </BrowserRouter>
     </>
