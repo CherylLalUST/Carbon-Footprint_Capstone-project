@@ -1,6 +1,7 @@
 package com.ust.carbon_footprint_transportation_details.controller;
 
 import com.ust.carbon_footprint_transportation_details.model.TransportationDetails;
+import com.ust.carbon_footprint_transportation_details.response.FullResponse;
 import com.ust.carbon_footprint_transportation_details.service.TransportationDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,5 +55,14 @@ public class TransportationDetailsController {
             return ResponseEntity.status(HttpStatus.OK).body(returnedTransportationDetails);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No records found for given ID.");
+    }
+
+    @GetMapping("/getVehiclesByTransportationId/{transportationDetailsId}")
+    public ResponseEntity<FullResponse> getVehiclesByTransportationId(@PathVariable String transportationDetailsId) {
+        FullResponse fullResponses = transportationDetailsService.getVehiclesByTransportationId(transportationDetailsId);
+        if (fullResponses != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(fullResponses);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

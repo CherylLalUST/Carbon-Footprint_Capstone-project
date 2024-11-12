@@ -1,7 +1,10 @@
 package com.ust.carbon_footprint_transportation_details.service;
 
+import com.ust.carbon_footprint_transportation_details.feign.VehicleFeign;
 import com.ust.carbon_footprint_transportation_details.model.TransportationDetails;
 import com.ust.carbon_footprint_transportation_details.repo.TransportationDetailsRepo;
+import com.ust.carbon_footprint_transportation_details.response.FullResponse;
+import com.ust.carbon_footprint_transportation_details.response.VehicleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,22 @@ public class TransportationDetailsService {
 
     @Autowired
     private TransportationDetailsRepo transportationDetailsRepo;
+
+    @Autowired
+    private VehicleFeign vehicleFeign;
+
+    public FullResponse getVehiclesByTransportationId(String transportationDetailsId){
+        TransportationDetails transportationDetails = transportationDetailsRepo.findByTransportationDetailsId(transportationDetailsId).orElse(null);
+        List<VehicleResponse> vehicles = vehicleFeign.getVehiclesByTransportationId(transportationDetailsId);
+        if(transportationDetails != null){
+            FullResponse fullResponse = new FullResponse();
+            fullResponse.setTransportationDetailsId(transportationDetails.getTransportationDetailsId());
+            fullResponse.setNumberOfVehicles(transportationDetails.getNumberOfVehicles());
+            fullResponse.setVehicles(vehicles);
+            return fullResponse;
+        }
+        return null;
+    }
 
     public List<TransportationDetails> getAllTransportationDetails(){
         return transportationDetailsRepo.findAll();
