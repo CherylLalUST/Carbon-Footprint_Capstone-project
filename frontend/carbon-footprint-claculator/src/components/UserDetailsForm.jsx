@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import '../css/UserDetailsForm.css';
+import { useNavigate } from "react-router-dom";
 
 function UserDetailsForm() {
+
   const [formData, setFormData] = useState({
     username: "",
     households: 1,
@@ -13,6 +15,8 @@ function UserDetailsForm() {
     households: true,
     country: true,
   });
+
+  let navigate = useNavigate();
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -38,6 +42,8 @@ function UserDetailsForm() {
     if (formData.username && formData.households && formData.country) {
       // Handle valid form submission
       console.log("Form submitted successfully:", formData);
+
+      navigate("/transportation");
     }
   };
 

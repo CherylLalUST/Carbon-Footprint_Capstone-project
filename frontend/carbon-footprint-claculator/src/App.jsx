@@ -19,7 +19,7 @@ function App() {
         <Route path="/user" element={<UserDetailsForm></UserDetailsForm>}></Route>
         <Route path="/transportation" element={<TransportationDetails />}></Route>
         <Route path="/waste" element={<WasteDetails />}></Route>
-        <Route path="/houseenergy" element={<HouseEnergyDetails />}></Route>
+        <Route path="/houseEnergy" element={<HouseEnergyDetails />}></Route>
       </Routes>
       </BrowserRouter>
     </>

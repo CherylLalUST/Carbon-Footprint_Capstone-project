@@ -57,3 +57,17 @@
     background-color: #45a049;
   }
   
+  .checkbox-group {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+  }
+  
+  .waste-item {
+    margin-bottom: 1.5rem;
+  }
+  

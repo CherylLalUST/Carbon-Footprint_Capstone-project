@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/WasteDetails.css';
 
 function WasteDetails() {
+
   const [wasteData, setWasteData] = useState({
     waste_food: { amount: '', composted: '' },
     plastic_waste: { amount: '', recycled: '' },
@@ -44,6 +45,7 @@ function WasteDetails() {
     <div className="waste-details-container">
       <h2>Waste Management Details</h2>
       <form onSubmit={handleSubmit} className="waste-form">
+
         {/* Waste Food */}
         <div className="waste-item">
           <label>Food Waste (kg):</label>
@@ -163,11 +165,11 @@ function WasteDetails() {
             <option value="no">No</option>
           </select>
         </div>
-
         <button type="submit" className="submit-button">Submit</button>
       </form>
     </div>
   );
+
 }
 
 export default WasteDetails;
