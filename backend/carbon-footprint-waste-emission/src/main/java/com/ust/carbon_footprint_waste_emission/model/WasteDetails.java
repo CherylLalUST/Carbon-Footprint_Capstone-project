@@ -16,19 +16,19 @@ public class WasteDetails {
     @Id
     private String wasteId;
     private double wasteFoodAmount;
-    private boolean isFoodCompost;
+    private boolean foodCompost;
     private double wastePlasticAmount;
-    private boolean isPlasticRecycle;
+    private boolean plasticRecycle;
     private double wastePaperAmount;
-    private boolean isPaperRecycle;
+    private boolean paperRecycle;
     private double wasteGlassAmount;
-    private boolean isGlassRecycle;
+    private boolean glassRecycle;
     private double wasteMetalAmount;
-    private boolean isMetalRecycle;
-    private double eWasteAmount;
-    private boolean isEwasteRecycle;
+    private boolean metalRecycle;
+    private double ewasteAmount;
+    private boolean ewasteRecycle;
+
     private double totalWasteEmission;
-    //private List<Double> emissions;
-    private double savedEmission;
+    private double reducedWasteEmission;
 
 }

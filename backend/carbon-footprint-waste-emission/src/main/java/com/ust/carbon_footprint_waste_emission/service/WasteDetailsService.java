@@ -5,8 +5,6 @@ import com.ust.carbon_footprint_waste_emission.repo.WasteDetailsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,7 +35,7 @@ public class WasteDetailsService {
         double paperEmission=0.0;
         double glassEmission=0.0;
         double metalEmission=0.0;
-        double ewasteEmission=0.0;
+        double eWasteEmission=0.0;
 
         foodEmission = wasteDetails.isFoodCompost()
                 ? wasteDetails.getWasteFoodAmount() * FOOD_COMPOST_EMISSION_FACTOR
@@ -59,11 +57,11 @@ public class WasteDetailsService {
                 ? wasteDetails.getWasteMetalAmount() * METAL_RECYCLE_EMISSION_FACTOR
                 : wasteDetails.getWasteMetalAmount() * METAL_NOTRECYCLE_EMISSION_FACTOR;
 
-        ewasteEmission=wasteDetails.isEwasteRecycle()
-                ? wasteDetails.getEWasteAmount() * EWASTE_RECYCLE_EMISSION_FACTOR
-                : wasteDetails.getEWasteAmount() * EWASTE_NOTRECYCLE_EMISSION_FACTOR;
+        eWasteEmission=wasteDetails.isEwasteRecycle()
+                ? wasteDetails.getEwasteAmount() * EWASTE_RECYCLE_EMISSION_FACTOR
+                : wasteDetails.getEwasteAmount() * EWASTE_NOTRECYCLE_EMISSION_FACTOR;
 
-        double totalWaste = foodEmission + plasticEmission + paperEmission + glassEmission + metalEmission + ewasteEmission;
+        double totalWaste = foodEmission + plasticEmission + paperEmission + glassEmission + metalEmission + eWasteEmission;
 
         wasteDetails.setTotalWasteEmission(totalWaste);
         calculateTotalSavedEmission(wasteDetails);
@@ -80,34 +78,30 @@ public class WasteDetailsService {
     }
 
     public void calculateTotalSavedEmission(WasteDetails wasteDetails) {
-        double savedEmission = 0.0;
 
-        // Calculate potential emissions if not recycled (non-composite or non-recycled)
-        double potentialFoodEmission = wasteDetails.getWasteFoodAmount() * FOOD_NONCOMPOST_EMISSION_FACTOR;
-        double potentialPlasticEmission = wasteDetails.getWastePlasticAmount() * PLASTIC_NOTRECYCLE_EMISSION_FACTOR;
-        double potentialPaperEmission = wasteDetails.getWastePaperAmount() * PAPER_NOTRECYCLE_EMISSION_FACTOR;
-        double potentialGlassEmission = wasteDetails.getWasteGlassAmount() * GLASS_NOTRECYCLE_EMISSION_FACTOR;
-        double potentialMetalEmission = wasteDetails.getWasteMetalAmount() * METAL_NOTRECYCLE_EMISSION_FACTOR;
-        double potentialEWasteEmission = wasteDetails.getEWasteAmount() * EWASTE_NOTRECYCLE_EMISSION_FACTOR;
+        double foodEmission=0.0;
+        double plasticEmission=0.0;
+        double paperEmission=0.0;
+        double glassEmission=0.0;
+        double metalEmission=0.0;
+        double eWasteEmission=0.0;
 
-        // Calculate actual emissions based on recycling status
-        double actualFoodEmission = wasteDetails.isFoodCompost() ? wasteDetails.getWasteFoodAmount() * FOOD_COMPOST_EMISSION_FACTOR : potentialFoodEmission;
-        double actualPlasticEmission = wasteDetails.isPlasticRecycle() ? wasteDetails.getWastePlasticAmount() * PLASTIC_RECYCLE_EMISSION_FACTOR : potentialPlasticEmission;
-        double actualPaperEmission = wasteDetails.isPaperRecycle() ? wasteDetails.getWastePaperAmount() * PAPER_RECYCLE_EMISSION_FACTOR : potentialPaperEmission;
-        double actualGlassEmission = wasteDetails.isGlassRecycle() ? wasteDetails.getWasteGlassAmount() * GLASS_RECYCLE_EMISSION_FACTOR : potentialGlassEmission;
-        double actualMetalEmission = wasteDetails.isMetalRecycle() ? wasteDetails.getWasteMetalAmount() * METAL_RECYCLE_EMISSION_FACTOR : potentialMetalEmission;
-        double actualEWasteEmission = wasteDetails.isEwasteRecycle() ? wasteDetails.getEWasteAmount() * EWASTE_RECYCLE_EMISSION_FACTOR : potentialEWasteEmission;
+        foodEmission = wasteDetails.getWasteFoodAmount() * FOOD_COMPOST_EMISSION_FACTOR;
 
-        // Calculate saved emissions for each waste type
-        savedEmission += potentialFoodEmission - actualFoodEmission;
-        savedEmission += potentialPlasticEmission - actualPlasticEmission;
-        savedEmission += potentialPaperEmission - actualPaperEmission;
-        savedEmission += potentialGlassEmission - actualGlassEmission;
-        savedEmission += potentialMetalEmission - actualMetalEmission;
-        savedEmission += potentialEWasteEmission - actualEWasteEmission;
+        plasticEmission = wasteDetails.getWastePlasticAmount() * PLASTIC_RECYCLE_EMISSION_FACTOR;
 
-        wasteDetails.setSavedEmission(savedEmission);
-        //wasteDetailsRepository.save(wasteDetails);
+        paperEmission= wasteDetails.getWastePaperAmount() * PAPER_RECYCLE_EMISSION_FACTOR;
+
+        glassEmission= wasteDetails.getWasteGlassAmount() * GLASS_RECYCLE_EMISSION_FACTOR;
+
+        metalEmission = wasteDetails.getWasteMetalAmount() * METAL_RECYCLE_EMISSION_FACTOR;
+
+        eWasteEmission= wasteDetails.getEwasteAmount() * EWASTE_RECYCLE_EMISSION_FACTOR;
+
+        double totalWasteEmission = foodEmission + plasticEmission + paperEmission + glassEmission + metalEmission + eWasteEmission;
+
+        wasteDetails.setReducedWasteEmission(totalWasteEmission);
+
 
     }
 }
