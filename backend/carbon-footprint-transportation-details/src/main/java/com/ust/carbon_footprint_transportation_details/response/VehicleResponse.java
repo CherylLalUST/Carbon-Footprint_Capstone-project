@@ -15,8 +15,8 @@ public class VehicleResponse {
     private double vehicleDistanceTravelled;
     private String vehicleFuelType;
     private double vehicleAvgMileage;
-    private boolean isPollutionCleared;
-    private  boolean isMaintenanceDone;
+    private boolean pollutionCleared;
+    private  boolean maintenanceDone;
     private double vehicleCarbonEmission;
     private double vehicleReducedCarbonEmission;
 }

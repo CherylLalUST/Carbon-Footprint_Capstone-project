@@ -58,30 +58,37 @@ public class VehicleService {
         switch (vehicle.getVehicleFuelType()) {
             case "petrol":
                 vehicle.setVehicleCarbonEmission(fuelQty * PETROL_EMISSION);
+                vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
                 break;
             case "diesel":
                 vehicle.setVehicleCarbonEmission(fuelQty * DIESEL_EMISSION);
+                vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
                 break;
             case "cng":
                 vehicle.setVehicleCarbonEmission(fuelQty * CNG_EMISSION);
+                vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
                 break;
             case "electric":
                 vehicle.setVehicleCarbonEmission(fuelQty * EV_EMISSION);
+                vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
                 break;
         }
 
         if(vehicle.isPollutionCleared()){
             vehicle.setVehicleCarbonEmission(vehicle.getVehicleCarbonEmission() * POLLUTION_CLEARED);
+            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
+        }
+        else{
+            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleReducedCarbonEmission() * POLLUTION_CLEARED);
         }
 
         if(vehicle.isMaintenanceDone()){
             vehicle.setVehicleCarbonEmission(vehicle.getVehicleCarbonEmission() * MAINTENANCE_DONE);
+            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
         }
-        calculateReducedCarbonEmission(vehicle);
-    }
-
-    private void calculateReducedCarbonEmission(Vehicle vehicle){
-        vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission() * POLLUTION_CLEARED * MAINTENANCE_DONE);
+        else {
+            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleReducedCarbonEmission() * MAINTENANCE_DONE);
+        }
     }
 
 }
