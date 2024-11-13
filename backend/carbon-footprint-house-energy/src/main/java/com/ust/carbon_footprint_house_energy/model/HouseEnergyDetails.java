@@ -12,7 +12,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class HouseEnergyDetails {
     @Id
-    private String id;
-    private double electricity;
-    private double naturalGas;
+    private String houseId;
+    private double houseElectricity;
+    private String houseElectricityType;
+    private double houseNaturalGas;
+    private String houseNaturalGasType;
+    private double totalHouseEmission;
+    private double totalHouseSavedEmission;
 }
