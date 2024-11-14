@@ -50,7 +50,6 @@ export default function Login() {
                 //setGeneratedToken(data); // Update state with generated token
                 console.log(data);
                 sessionStorage.setItem("token", data);
-                sessionStorage.setItem("username",userCredentials.username);
                 navigate("/user");
             })
             .catch((error) => console.error("Error:", error));

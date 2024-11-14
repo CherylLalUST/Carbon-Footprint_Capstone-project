@@ -1,35 +1,72 @@
 import React, { useState } from 'react';
 import '../css/WasteDetails.css';
+import { useNavigate } from 'react-router-dom';
 
 function WasteDetails() {
+
+  const wasteUrl = "http://localhost:9096/carbonFootprint/waste";
+  const token = sessionStorage.getItem("token");
+
   const [wasteData, setWasteData] = useState({
-    waste_food: { amount: '', composted: false },
-    plastic_waste: { amount: '', recycled: false },
-    paper_waste: { amount: '', recycled: false },
-    metal_waste: { amount: '', recycled: false },
-    glass_waste: { amount: '', recycled: false },
-    e_waste: { amount: '', recycled: false },
+    wasteFoodAmount: '',
+    foodCompost: false,
+    wastePlasticAmount: '',
+    plasticRecycle: false,
+    wastePaperAmount: '',
+    paperRecycle: false,
+    wasteGlassAmount: '',
+    glassRecycle: false,
+    wasteMetalAmount: '',
+    metalRecycle: false,
+    ewasteAmount: '',
+    ewasteRecycle: false,
   });
 
-  const handleAmountChange = (e, wasteType) => {
+  const [displayFlag, setDisplayFlag] = useState(false);
+  let navigate = useNavigate();
+
+  const handleAmountChange = (e, field) => {
     const { value } = e.target;
+    const amount = parseFloat(value) || 0;
     setWasteData((prevData) => ({
       ...prevData,
-      [wasteType]: { ...prevData[wasteType], amount: parseFloat(value) || 0 },
+      [field]: amount,
     }));
+
+    if (amount === 0) {
+      setDisplayFlag(true);
+    }
   };
 
-  const handleCheckboxChange = (e, wasteType, field) => {
+  const handleCheckboxChange = (e, field) => {
     const { checked } = e.target;
     setWasteData((prevData) => ({
       ...prevData,
-      [wasteType]: { ...prevData[wasteType], [field]: checked },
+      [field]: checked,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Waste Data Submitted:', wasteData);
+    const updatedWasteData = { 
+      ...wasteData,
+      wasteFoodAmount: wasteData.wasteFoodAmount || 0,
+      wastePlasticAmount: wasteData.wastePlasticAmount || 0,
+      wastePaperAmount: wasteData.wastePaperAmount || 0,
+      wasteGlassAmount: wasteData.wasteGlassAmount || 0,
+      wasteMetalAmount: wasteData.wasteMetalAmount || 0,
+      ewasteAmount: wasteData.ewasteAmount || 0,
+    };
+    console.log('Waste Data entered:', wasteData);
+    console.log('Waste Data Submitted:', updatedWasteData);
+
+    fetch(wasteUrl + "/addDetails", {
+      method: "POST",
+      body: JSON.stringify(updatedWasteData),
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+    })
+    .then((res) => res.json())
+    .then(navigate("/houseEnergy"));
   };
 
   return (
@@ -38,27 +75,28 @@ function WasteDetails() {
       <div className="form-card">
         <form onSubmit={handleSubmit} className="waste-form">
           <div className="scrollable-form">
-            {/* Waste Food */}
+            {/* Food Waste */}
             <div className="waste-item" style={{ marginTop: '0.7em' }}>
               <label style={{ marginLeft: '2em' }}>Food Waste (kg):</label>
               <input
                 type="number"
+                step=".01"
                 min="0"
-                value={wasteData.waste_food.amount}
-                onChange={(e) => handleAmountChange(e, 'waste_food')}
+                //value={wasteData.wasteFoodAmount}
+                onChange={(e) => handleAmountChange(e, 'wasteFoodAmount')}
                 onFocus={(e) => e.target.select()}
                 placeholder="Enter amount"
               />
               <label>
                 <input
                   type="checkbox"
-                  checked={wasteData.waste_food.composted}
-                  onChange={(e) => handleCheckboxChange(e, 'waste_food', 'composted')}
+                  checked={wasteData.foodCompost}
+                  onChange={(e) => handleCheckboxChange(e, 'foodCompost')}
                 />
                 Composted
               </label>
             </div>
-            {wasteData.waste_food.amount === 0 && (
+            {displayFlag && wasteData.wasteFoodAmount === 0 && (
               <div style={{ color: '#C49102', fontSize: '0.8em', marginBottom: '2em', marginLeft: '16.5em' }}>
                 NOTE: You have entered 0 Kg for food waste.
               </div>
@@ -70,21 +108,21 @@ function WasteDetails() {
               <input
                 type="number"
                 min="0"
-                value={wasteData.plastic_waste.amount}
-                onChange={(e) => handleAmountChange(e, 'plastic_waste')}
+                //value={wasteData.wastePlasticAmount}
+                onChange={(e) => handleAmountChange(e, 'wastePlasticAmount')}
                 onFocus={(e) => e.target.select()}
                 placeholder="Enter amount"
               />
               <label>
                 <input
                   type="checkbox"
-                  checked={wasteData.plastic_waste.recycled}
-                  onChange={(e) => handleCheckboxChange(e, 'plastic_waste', 'recycled')}
+                  checked={wasteData.plasticRecycle}
+                  onChange={(e) => handleCheckboxChange(e, 'plasticRecycle')}
                 />
                 Recycled
               </label>
             </div>
-            {wasteData.plastic_waste.amount === 0 && (
+            {displayFlag && wasteData.wastePlasticAmount === 0 && (
               <div style={{ color: '#C49102', fontSize: '0.8em', marginBottom: '2em', marginLeft: '16.5em' }}>
                 NOTE: You have entered 0 Kg for plastic waste.
               </div>
@@ -96,21 +134,21 @@ function WasteDetails() {
               <input
                 type="number"
                 min="0"
-                value={wasteData.paper_waste.amount}
-                onChange={(e) => handleAmountChange(e, 'paper_waste')}
+                //value={wasteData.wastePaperAmount}
+                onChange={(e) => handleAmountChange(e, 'wastePaperAmount')}
                 onFocus={(e) => e.target.select()}
                 placeholder="Enter amount"
               />
               <label>
                 <input
                   type="checkbox"
-                  checked={wasteData.paper_waste.recycled}
-                  onChange={(e) => handleCheckboxChange(e, 'paper_waste', 'recycled')}
+                  checked={wasteData.paperRecycle}
+                  onChange={(e) => handleCheckboxChange(e, 'paperRecycle')}
                 />
                 Recycled
               </label>
             </div>
-            {wasteData.paper_waste.amount === 0 && (
+            {displayFlag && wasteData.wastePaperAmount === 0 && (
               <div style={{ color: '#C49102', fontSize: '0.8em', marginBottom: '2em', marginLeft: '16.5em' }}>
                 NOTE: You have entered 0 Kg for paper waste.
               </div>
@@ -122,21 +160,21 @@ function WasteDetails() {
               <input
                 type="number"
                 min="0"
-                value={wasteData.metal_waste.amount}
-                onChange={(e) => handleAmountChange(e, 'metal_waste')}
+                //value={wasteData.wasteMetalAmount}
+                onChange={(e) => handleAmountChange(e, 'wasteMetalAmount')}
                 onFocus={(e) => e.target.select()}
                 placeholder="Enter amount"
               />
               <label>
                 <input
                   type="checkbox"
-                  checked={wasteData.metal_waste.recycled}
-                  onChange={(e) => handleCheckboxChange(e, 'metal_waste', 'recycled')}
+                  checked={wasteData.metalRecycle}
+                  onChange={(e) => handleCheckboxChange(e, 'metalRecycle')}
                 />
                 Recycled
               </label>
             </div>
-            {wasteData.metal_waste.amount === 0 && (
+            {displayFlag && wasteData.wasteMetalAmount === 0 && (
               <div style={{ color: '#C49102', fontSize: '0.8em', marginBottom: '2em', marginLeft: '16.5em' }}>
                 NOTE: You have entered 0 Kg for metal waste.
               </div>
@@ -148,21 +186,21 @@ function WasteDetails() {
               <input
                 type="number"
                 min="0"
-                value={wasteData.glass_waste.amount}
-                onChange={(e) => handleAmountChange(e, 'glass_waste')}
+                //value={wasteData.wasteGlassAmount}
+                onChange={(e) => handleAmountChange(e, 'wasteGlassAmount')}
                 onFocus={(e) => e.target.select()}
                 placeholder="Enter amount"
               />
               <label>
                 <input
                   type="checkbox"
-                  checked={wasteData.glass_waste.recycled}
-                  onChange={(e) => handleCheckboxChange(e, 'glass_waste', 'recycled')}
+                  checked={wasteData.glassRecycle}
+                  onChange={(e) => handleCheckboxChange(e, 'glassRecycle')}
                 />
                 Recycled
               </label>
             </div>
-            {wasteData.glass_waste.amount === 0 && (
+            {displayFlag && wasteData.wasteGlassAmount === 0 && (
               <div style={{ color: '#C49102', fontSize: '0.8em', marginBottom: '2em', marginLeft: '16.5em' }}>
                 NOTE: You have entered 0 Kg for glass waste.
               </div>
@@ -174,21 +212,21 @@ function WasteDetails() {
               <input
                 type="number"
                 min="0"
-                value={wasteData.e_waste.amount}
-                onChange={(e) => handleAmountChange(e, 'e_waste')}
+                //value={wasteData.ewasteAmount}
+                onChange={(e) => handleAmountChange(e, 'ewasteAmount')}
                 onFocus={(e) => e.target.select()}
                 placeholder="Enter amount"
               />
               <label>
                 <input
                   type="checkbox"
-                  checked={wasteData.e_waste.recycled}
-                  onChange={(e) => handleCheckboxChange(e, 'e_waste', 'recycled')}
+                  checked={wasteData.ewasteRecycle}
+                  onChange={(e) => handleCheckboxChange(e, 'ewasteRecycle')}
                 />
                 Recycled
               </label>
             </div>
-            {wasteData.e_waste.amount === 0 && (
+            {displayFlag && wasteData.ewasteAmount === 0 && (
               <div style={{ color: '#C49102', fontSize: '0.8em', marginBottom: '2em', marginLeft: '16.5em' }}>
                 NOTE: You have entered 0 Kg for e-waste.
               </div>

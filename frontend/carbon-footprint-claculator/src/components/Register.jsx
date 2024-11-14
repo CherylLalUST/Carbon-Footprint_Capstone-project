@@ -42,7 +42,10 @@ export default function Register() {
                 headers: { "Content-Type": "application/json" },
             })
             .then((res) => res.json())
-            .then((data) => navigate("/login"));
+            .then((data) => {
+                sessionStorage.setItem("username",userCredentials.username);
+                navigate("/login");
+            });
 
         console.log("Username:", userCredentials.username, "Password:", userCredentials.password);
     };
