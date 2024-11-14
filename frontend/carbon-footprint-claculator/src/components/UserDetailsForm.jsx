@@ -4,15 +4,18 @@ import { useNavigate } from "react-router-dom";
 
 function UserDetailsForm() {
 
+  const baseUrl = "http://localhost:9092/carbonFootprint/userDetails";
+  const token = sessionStorage.getItem("token");
+
   const [formData, setFormData] = useState({
-    username: "",
-    households: 1,
+    username: sessionStorage.getItem("username"),
+    numberOfHousehold: 1,
     country: "",
   });
 
   const [formErrors, setFormErrors] = useState({
     username: true,
-    households: true,
+    numberOfHousehold: true,
     country: true,
   });
 
@@ -36,14 +39,19 @@ function UserDetailsForm() {
     // Validate form fields
     setFormErrors({
       username: !!formData.username,
-      households: !!formData.households,
+      numberOfHousehold: !!formData.numberOfHousehold,
       country: !!formData.country,
     });
-    if (formData.username && formData.households && formData.country) {
+    if (formData.username && formData.numberOfHousehold && formData.country) {
       // Handle valid form submission
+      fetch(baseUrl + "/addUserDetails", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+      })
+      .then((res) => res.json())
+      .then(navigate("/transportation"));
       console.log("Form submitted successfully:", formData);
-
-      navigate("/transportation");
     }
   };
 
@@ -52,35 +60,21 @@ function UserDetailsForm() {
     <div className="form-container">
     <h2>Basic Details</h2>
   <form onSubmit={handleSubmit} className="custom-form">
-    <div>
-      <label htmlFor="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        value={formData.username}
-        onChange={handleFormChange}
-        required
-      />
-      <div className="error-message">
-        {formErrors.username ? "" : "Username is required!"}
-      </div>
-    </div>
 
     <div>
-      <label htmlFor="households">Number of Households</label>
+      <label htmlFor="numberOfHousehold">Number of Households</label>
       <input
         type="number"
-        id="households"
-        name="households"
+        id="numberOfHousehold"
+        name="numberOfHousehold"
         min="1"
-        value={formData.households}
+        value={formData.numberOfHousehold}
         onChange={handleFormChange}
         required 
         onFocus={(e) => e.target.select()}
       />
       <div className="error-message">
-        {formErrors.households ? "" : "Number of households is required!"}
+        {formErrors.numberOfHousehold ? "" : "Number of Households is required!"}
       </div>
     </div>
 

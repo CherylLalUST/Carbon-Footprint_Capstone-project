@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/carbonFootprint/vehicles")
 public class VehicleController {
@@ -36,6 +37,13 @@ public class VehicleController {
     public ResponseEntity<Vehicle> addVehicle(@RequestBody Vehicle vehicle){
         vehicle = vehicleService.addVehicle(vehicle);
         return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);
+    }
+
+    @PostMapping("/addVehicles")
+    public ResponseEntity<List<Vehicle>> addVehicles(@RequestBody List<Vehicle> vehicles) {
+        System.out.println("vehicles : " + vehicles);
+        List<Vehicle> savedVehicles = vehicleService.addVehicles(vehicles);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedVehicles);
     }
 
     @GetMapping("/getVehiclesByTransportationId/{transportationDetailsId}")

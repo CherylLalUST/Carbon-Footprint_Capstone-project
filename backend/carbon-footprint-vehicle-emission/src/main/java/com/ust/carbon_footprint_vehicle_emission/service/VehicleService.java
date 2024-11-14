@@ -37,6 +37,12 @@ public class VehicleService {
         return vehicle;
     }
 
+    public List<Vehicle> addVehicles(List<Vehicle> vehicles) {
+        vehicles.forEach(this::calculateCarbonEmission); // Calculate emissions for each vehicle
+        return vehicleRepo.saveAll(vehicles);            // Save the list of vehicles in one operation
+    }
+
+
     public List<Vehicle> getVehiclesByTransportationId(String transportationDetailsId){
         return vehicleRepo.findByTransportationDetailsId(transportationDetailsId);
     }

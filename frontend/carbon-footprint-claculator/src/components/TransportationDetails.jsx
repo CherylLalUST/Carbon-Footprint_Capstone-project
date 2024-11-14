@@ -1,18 +1,34 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/TransportationDetails.css';
+import { GiSouthAfrica } from 'react-icons/gi';
 
 function TransportationDetails() {
+
+  const transportationUrl = "http://localhost:9094/carbonFootprint/transportationDetails";
+  const vehicleUrl = "http://localhost:9095/carbonFootprint/vehicles";
+  const token = sessionStorage.getItem("token");
+
+  // const [transportationDetails,setTransportationDetails] = useState({
+  //   transportationDetailsId: "",
+  //   numberOfVehicles: 0
+  // })
+
+
   const [vehicles, setVehicles] = useState([]);
-  const [numVehicles, setNumVehicles] = useState(0);
+  const [numberOfVehicles, setNumberOfVehicles] = useState(0);
   const [formErrors, setFormErrors] = useState([]);
   const navigate = useNavigate();
+  let [displayFlag, setDisplayFlag] = useState(false);
 
   const handleVehicleCountChange = (e) => {
     const count = parseInt(e.target.value, 10);
-    setNumVehicles(count);
-    setVehicles(Array(count).fill({ fuelType: '', avgMileage: '', pollutionCleared: false, maintenanceDone: false }));
-    setFormErrors(Array(count).fill({ fuelType: true, avgMileage: true }));
+    setNumberOfVehicles(count);
+    setVehicles(Array(count).fill({transportationDetailsId: '', vehicleFuelType: '', vehicleDistanceTravelled: '', vehicleAvgMileage: '', pollutionCleared: true, maintenanceDone: true }));
+    setFormErrors(Array(count).fill({transportationDetailsId: '', vehicleFuelType: true, vehicleAvgMileage: true, vehicleDistanceTravelled: true }));
+    if(count == 0){
+      setDisplayFlag(true);
+    }
   };
 
   const handleChange = (index, field, value) => {
@@ -30,21 +46,57 @@ function TransportationDetails() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (numberOfVehicles == "") {
+      setNumberOfVehicles(0);
+    }
+    console.log(numberOfVehicles);
     // Check if all vehicle fields are filled out
     const errors = vehicles.map(vehicle => ({
-      fuelType: !!vehicle.fuelType,
-      avgMileage: !!vehicle.avgMileage,
+      vehicleFuelType: !!vehicle.vehicleFuelType,
+      vehicleAvgMileage: !!vehicle.vehicleAvgMileage,
+      vehicleDistanceTravelled: !!vehicle.vehicleDistanceTravelled,
     }));
 
-    const isValid = errors.every(error => error.fuelType && error.avgMileage);
+    const isValid = errors.every(error => error.vehicleFuelType && error.vehicleAvgMileage && error.vehicleDistanceTravelled);
     setFormErrors(errors);
 
     if (isValid) {
+      
+      fetch(transportationUrl + "/addTransportationDetails", {
+        method: "POST",
+        body: JSON.stringify({numberOfVehicles}),
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Received data:", data.transportationDetailsId);
+        //sessionStorage.setItem("transportationDetailsId",data.transportationDetailsId);
+        let sendVehicles = vehicles.map(vehicle => ({
+          ...vehicle,
+          transportationDetailsId: data.transportationDetailsId
+        }));
+        
+        if(data.numberOfVehicles == 0){
+          navigate("/waste");
+        }
+        else{
+          console.log("send vehicles:");
+          console.log(sendVehicles);
+          fetch(vehicleUrl + "/addVehicles", {
+            method: "POST",
+            body: JSON.stringify(sendVehicles),
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+          })
+          .then((res) => res.json())
+          .then((data) => {
+            navigate("/waste");
+          })
+        }
+      });
+
+      console.log("number of vehicles submitted successfully:", numberOfVehicles);
       console.log("Form submitted successfully:", vehicles);
-      navigate("/waste");
-    } else {
-      alert("Please fill in all required fields.");
+      
     }
   };
 
@@ -57,12 +109,18 @@ function TransportationDetails() {
           Number of Vehicles:
           <input
             type="number"
-            value={numVehicles}
+            // value={numVehicles}
             onChange={handleVehicleCountChange}
             min="0"
+            placeholder="Enter number of vehicles"
             onFocus={(e) => e.target.select()}
           />
         </label>
+        {displayFlag && (
+          <div style={{ color: '#C49102', fontSize: '0.8em', marginTop: '1em' }}>
+            NOTE: You have entered 0 vehicles.
+          </div>
+        )}
 
         <div className="vehicle-cards">
           {vehicles.map((vehicle, index) => (
@@ -72,34 +130,46 @@ function TransportationDetails() {
               <label>
                 Fuel Type:
                 <select
-                  value={vehicle.fuelType}
-                  onChange={(e) => handleChange(index, 'fuelType', e.target.value)}
+                  value={vehicle.vehicleFuelType}
+                  onChange={(e) => handleChange(index, 'vehicleFuelType', e.target.value)}
                 >
                   <option value="">Select Fuel Type</option>
                   <option value="petrol">Petrol</option>
                   <option value="diesel">Diesel</option>
+                  <option value="cng">CNG</option>
                   <option value="electric">Electric</option>
                 </select>
-                {!formErrors[index]?.fuelType && <div className="error-message">Fuel type is required</div>}
+                {!formErrors[index]?.vehicleFuelType && <div className="error-message">Fuel type is required</div>}
+              </label>
+
+              <label>
+                Distance Travelled:
+                <input
+                  type="text"
+                  value={vehicle.vehicleDistanceTravelled}
+                  onChange={(e) => handleChange(index, 'vehicleDistanceTravelled', e.target.value)}
+                  placeholder="Enter total distance travelled"
+                />
+                {!formErrors[index]?.vehicleDistanceTravelled && <div className="error-message">Distance travelled is required</div>}
               </label>
 
               <label>
                 Avg. Mileage or Range:
                 <input
                   type="text"
-                  value={vehicle.avgMileage}
-                  onChange={(e) => handleChange(index, 'avgMileage', e.target.value)}
+                  value={vehicle.vehicleAvgMileage}
+                  onChange={(e) => handleChange(index, 'vehicleAvgMileage', e.target.value)}
                   placeholder="Enter mileage or battery range"
                 />
-                {!formErrors[index]?.avgMileage && <div className="error-message">Mileage is required</div>}
+                {!formErrors[index]?.vehicleAvgMileage && <div className="error-message">Mileage is required</div>}
               </label>
 
-              {vehicle.fuelType !== 'electric' && (
+              {vehicle.vehicleFuelType !== 'electric' && (
                 <label>
-                  Is Pollution Cleared:
+                  Is the vehicles pollution test cleared?
                   <select
                     value={vehicle.pollutionCleared}
-                    onChange={(e) => handleChange(index, 'pollutionCleared', e.target.value === 'true')}
+                    onChange={(e) => handleChange(index, 'pollutionCleared', e.target.value === 'false')}
                   >
                     <option value="false">No</option>
                     <option value="true">Yes</option>
@@ -108,10 +178,10 @@ function TransportationDetails() {
               )}
 
               <label>
-                Is Maintenance Done:
+              Is the vehicles maintenance done?
                 <select
                   value={vehicle.maintenanceDone}
-                  onChange={(e) => handleChange(index, 'maintenanceDone', e.target.value === 'true')}
+                  onChange={(e) => handleChange(index, 'maintenanceDone', e.target.value === 'false')}
                 >
                   <option value="false">No</option>
                   <option value="true">Yes</option>

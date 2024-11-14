@@ -11,6 +11,7 @@ import com.ust.carbon_footprint_user_details.response.UserCredentialsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,7 @@ public class UserDetailsService {
     }
 
     public UserDetails addUserDetails(UserDetails userDetails){
+        userDetails.setDateAdded(LocalDate.now());
         return userDetailsRepo.save(userDetails);
     }
 
