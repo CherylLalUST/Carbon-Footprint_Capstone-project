@@ -1,4 +1,6 @@
-body {
+
+  
+  body {
     background-color: #f0f2f5;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -65,3 +67,22 @@ h2 {
     color: #666;
     margin: 0.5em 0;
 }
+
+.emission-card {
+    background-color: #eaf4f4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1em;
+    margin-top: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .emission-card h4 {
+    color: #333;
+  }
+  
+  .emission-prompt {
+    color: #555;
+    font-style: italic;
+    margin-top: 0.5em;
+  }

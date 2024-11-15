@@ -28,4 +28,9 @@ public class HouseEnergyController {
                 ? ResponseEntity.status(HttpStatus.OK).body(houseEnergyDetails)
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+    @GetMapping("/emission")
+    public HouseEnergyDetails getEmission(@PathVariable String houseId) {
+        return houseEnergyService.getTotalHouseEmission(houseId);
+    }
 }
