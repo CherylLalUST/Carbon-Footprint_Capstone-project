@@ -80,7 +80,7 @@ function WasteDetails() {
               <label style={{ marginLeft: '2em' }}>Food Waste (kg):</label>
               <input
                 type="number"
-                step=".01"
+                step=".1"
                 min="0"
                 //value={wasteData.wasteFoodAmount}
                 onChange={(e) => handleAmountChange(e, 'wasteFoodAmount')}
@@ -107,6 +107,7 @@ function WasteDetails() {
               <label style={{ marginLeft: '2em' }}>Plastic Waste (kg):</label>
               <input
                 type="number"
+                step=".1"
                 min="0"
                 //value={wasteData.wastePlasticAmount}
                 onChange={(e) => handleAmountChange(e, 'wastePlasticAmount')}
@@ -133,6 +134,7 @@ function WasteDetails() {
               <label style={{ marginLeft: '2em' }}>Paper Waste (kg):</label>
               <input
                 type="number"
+                step=".1"
                 min="0"
                 //value={wasteData.wastePaperAmount}
                 onChange={(e) => handleAmountChange(e, 'wastePaperAmount')}
@@ -159,6 +161,7 @@ function WasteDetails() {
               <label style={{ marginLeft: '2em' }}>Metal Waste (kg):</label>
               <input
                 type="number"
+                step=".1"
                 min="0"
                 //value={wasteData.wasteMetalAmount}
                 onChange={(e) => handleAmountChange(e, 'wasteMetalAmount')}
@@ -185,6 +188,7 @@ function WasteDetails() {
               <label style={{ marginLeft: '2em' }}>Glass Waste (kg):</label>
               <input
                 type="number"
+                step=".1"
                 min="0"
                 //value={wasteData.wasteGlassAmount}
                 onChange={(e) => handleAmountChange(e, 'wasteGlassAmount')}
@@ -211,6 +215,7 @@ function WasteDetails() {
               <label style={{ marginLeft: '2em' }}>E-Waste (kg):</label>
               <input
                 type="number"
+                step=".1"
                 min="0"
                 //value={wasteData.ewasteAmount}
                 onChange={(e) => handleAmountChange(e, 'ewasteAmount')}
