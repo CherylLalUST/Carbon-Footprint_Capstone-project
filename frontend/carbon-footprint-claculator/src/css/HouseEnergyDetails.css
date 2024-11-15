@@ -31,6 +31,30 @@
   border-radius: 4px;
 }
 
+.radio-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  color: #333;
+}
+
+.radio-group label input[type="radio"] {
+  margin-right: 0.3em;
+}
+
+.input-card {
+  background-color: #efebd0;
+  padding: 1em;
+  border-radius: 8px;
+}
+
 .submit-button {
   padding: 0.7em;
   background-color: #4CAF50;
@@ -42,12 +66,4 @@
 
 .submit-button:hover {
   background-color: #45a049;
-}
-
-.input-card {
-  background-color: #efebd0;
-}
-
-label[for="electricityUsage"] {
-  margin-top: 1em;
 }
