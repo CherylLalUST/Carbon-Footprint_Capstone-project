@@ -1,80 +1,4 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import '../css/Statistics.css';
 
-// function Statistics() {
-//   const [selectedDate, setSelectedDate] = useState('');
-//   const [selectedCountry, setSelectedCountry] = useState('');
-//   const [selectedHouseholds, setSelectedHouseholds] = useState('');
-
-//   const handleFilterChange = (filterType, value) => {
-//     if (filterType === 'date') setSelectedDate(value);
-//     else if (filterType === 'country') setSelectedCountry(value);
-//     else if (filterType === 'households') setSelectedHouseholds(value);
-//   };
-
-//   const handleFilterApply = () => {
-//     // Fetch data based on selected filters
-//     console.log("Applying filters:", {
-//       date: selectedDate,
-//       country: selectedCountry,
-//       households: selectedHouseholds
-//     });
-//   };
-
-//   return (
-//     <div className="statistics-container">
-//       <h2>Statistics Overview</h2>
-
-//       <div className="filters-container">
-//         <label>
-//           Filter by Date:
-//           <select value={selectedDate} onChange={(e) => handleFilterChange('date', e.target.value)}>
-//             <option value="">Select Date</option>
-//             <option value="2024-01-01">2024-01-01</option>
-//             <option value="2024-01-02">2024-01-02</option>
-//             {/* Add more date options */}
-//           </select>
-//         </label>
-
-//         <label>
-//           Filter by Country:
-//           <select value={selectedCountry} onChange={(e) => handleFilterChange('country', e.target.value)}>
-//             <option value="">Select Country</option>
-//             <option value="USA">USA</option>
-//             <option value="Canada">Canada</option>
-//             {/* Add more country options */}
-//           </select>
-//         </label>
-
-//         <label>
-//            Filter by Households:
-//         <input
-//         type="text"
-//         placeholder="Enter number of Householders"
-//         value={selectedHouseholds}
-//         onChange={(e) => handleFilterChange('households', e.target.value)}
-//         />
-//         </label>
-
-
-//         <button onClick={handleFilterApply} className="apply-button">
-//           Apply Filters
-//         </button>
-//       </div>
-
-//       <div className="statistics-results">
-//         {/* Mock statistics data, replace with actual fetched data */}
-//         <h3>Filtered Results</h3>
-//         <p>Date: {selectedDate || 'All Dates'}</p>
-//         <p>Country: {selectedCountry || 'All Countries'}</p>
-//         <p>Number of Households: {selectedHouseholds || 'All Households'}</p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Statistics;
 
 
 
@@ -83,107 +7,66 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Statistics.css';
+import { FaGlobe } from 'react-icons/fa';
 
 function Statistics() {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedHouseholds, setSelectedHouseholds] = useState('');
-  const [totalEmission, setTotalEmission] = useState(null);
-  const [promptMessage, setPromptMessage] = useState('');
-
+  const [username, setUsername] = useState('');
+  const [country, setCountry] = useState('');
+  const [households, setHouseholds] = useState('');
   const navigate = useNavigate();
 
-  const handleFilterChange = (filterType, value) => {
-    if (filterType === 'date') setSelectedDate(value);
-    else if (filterType === 'country') setSelectedCountry(value);
-    else if (filterType === 'households') setSelectedHouseholds(value);
-  };
-
-  const handleFilterApply = () => {
-    // Fetch data based on selected filters
-    console.log("Applying filters:", {
-      date: selectedDate,
-      country: selectedCountry,
-      households: selectedHouseholds
-    });
-  };
-
   useEffect(() => {
-    // Simulate fetching the total emission from the backend
-    axios.get('/api/emissions/total')
+    // Fetch user details from the backend
+    axios.get('/api/user/details')
       .then(response => {
-        const emission = response.data.totalEmission;
-        setTotalEmission(emission);
-
-        // Set prompt message based on the emission value
-        if (emission < 500) {
-          setPromptMessage("Your emissions are relatively low! Keep up the great work!");
-        } else if (emission < 1500) {
-          setPromptMessage("Your emissions are equivalent to cutting down 5 trees. Consider reducing waste.");
-        } else {
-          setPromptMessage("Your emissions are high! That's like driving a car for 6,000 miles!");
-        }
+        const { username, country, households } = response.data;
+        setUsername(username);
+        setCountry(country);
+        setHouseholds(households);
       })
-      .catch(error => console.error("Error fetching total emission:", error));
+      .catch(error => console.error("Error fetching user details:", error));
   }, []);
 
+  const handleWhatIsCarbonEmission = () => {
+    alert("Carbon Emission is the release of carbon dioxide into the atmosphere due to human activities like burning fossil fuels, deforestation, etc.");
+  };
+  function handleLogout(){
+    localStorage.clear(); 
+    navigate('/login'); 
+  }
+  
+
   return (
-    <div className="statistics-container">
-      <h2>Statistics Overview</h2>
+    <div className="statistics-page">
+      {/* Navbar */}
+      <div className="navbar">
+  <div className="navbar-left" onClick={handleWhatIsCarbonEmission}>
+    <p>What is Carbon Emission?</p>
+  </div>
+  <div className="navbar-center">
+    <h1>Carbon-Wise</h1>
+    <p>Welcome {username}, you're tracking for {households} people!</p>
+  </div>
+  <div className="navbar-right">
+    <FaGlobe size={24} />
+    <span>{country}</span>
+    <button className="logout-button" onClick={handleLogout}>Logout</button>
+  </div>
+</div>
 
-      <div className="filters-container">
-        <label>
-          Filter by Date:
-          <select value={selectedDate} onChange={(e) => handleFilterChange('date', e.target.value)}>
-            <option value="">Select Date</option>
-            <option value="2024-01-01">2024-01-01</option>
-            <option value="2024-01-02">2024-01-02</option>
-          </select>
-        </label>
-
-        <label>
-          Filter by Country:
-          <select value={selectedCountry} onChange={(e) => handleFilterChange('country', e.target.value)}>
-            <option value="">Select Country</option>
-            <option value="USA">USA</option>
-            <option value="Canada">Canada</option>
-          </select>
-        </label>
-
-        <label>
-          Filter by Households:
-          <input
-            type="text"
-            placeholder="Enter number of Households"
-            value={selectedHouseholds}
-            onChange={(e) => handleFilterChange('households', e.target.value)}
-          />
-        </label>
-
-        <button onClick={handleFilterApply} className="apply-button">
-          Apply Filters
-        </button>
-      </div>
-
-      <div className="statistics-results">
-        <h3>Filtered Results</h3>
-        <p>Date: {selectedDate || 'All Dates'}</p>
-        <p>Country: {selectedCountry || 'All Countries'}</p>
-        <p>Number of Households: {selectedHouseholds || 'All Households'}</p>
-      </div>
-
-      {/* Display Emission Info and Prompt */}
-      {totalEmission !== null && (
-        <div className="emission-card">
-          <h4>Total Emission</h4>
-          <p>{totalEmission} kg CO₂</p>
-          <p className="emission-prompt">{promptMessage}</p>
+      {/* Cards Section */}
+      <div className="cards-container">
+        <div className="card" onClick={() => navigate('/view-statistics')}>
+          <h4>View Statistics</h4>
+          <p>Click here to view your emissions by month.</p>
         </div>
-      )}
+        <div className="card" onClick={() => navigate('/transportation')}>
+          <h4>Track Emissions</h4>
+          <p>Click here to track emissions from transportation.</p>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default Statistics;
-
-
