@@ -101,7 +101,7 @@ function TransportationDetails() {
   };
 
   return (
-    <div className="transportation-container">
+    <div className='transportation-container'>
       <h2>Transportation Details</h2>
 
       <form onSubmit={handleSubmit}>
