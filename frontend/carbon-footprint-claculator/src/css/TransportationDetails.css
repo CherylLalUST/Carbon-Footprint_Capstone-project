@@ -6,6 +6,7 @@ body {
     min-height: 100vh;  /* Full viewport height */
     margin: 0;  /* Remove default body margin */
     padding: 0;  /* Remove default body padding */
+    z-index: 1;
   }
   
   .transportation-container {

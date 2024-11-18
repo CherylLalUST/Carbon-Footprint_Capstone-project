@@ -4,30 +4,30 @@ export const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
   const [transportationData, setTransportationData] = useState({
-    numberOfVehicles: 0,
+    numberOfVehicles: '',
     vehicles: [],
   });
 
   const [wasteData, setWasteData] = useState({
-    wasteFoodAmount: 0,
+    wasteFoodAmount: '',
     foodCompost: false,
-    wastePlasticAmount: 0,
+    wastePlasticAmount: '',
     plasticRecycle: false,
-    wastePaperAmount: 0,
+    wastePaperAmount: '',
     paperRecycle: false,
-    wasteGlassAmount: 0,
+    wasteGlassAmount: '',
     glassRecycle: false,
-    wasteMetalAmount: 0,
+    wasteMetalAmount: '',
     metalRecycle: false,
-    ewasteAmount: 0,
+    ewasteAmount: '',
     ewasteRecycle: false,
   });
 
   const [houseEnergyData, setHouseEnergyData] = useState({
-    electricityUsage: 0,
-    gasUsage: 0,
-    electricityType: "",
-    naturalGasType: "",
+    electricityUsage: '',
+    gasUsage: '',
+    electricityType: '',
+    naturalGasType: '',
   });
 
   return (

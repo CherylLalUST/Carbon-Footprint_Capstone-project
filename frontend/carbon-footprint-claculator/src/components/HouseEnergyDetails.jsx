@@ -1,32 +1,28 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../css/HouseEnergyDetails.css';
+import { FormContext } from "../FormContext";
 import { useNavigate } from 'react-router-dom';
 
 function HouseEnergyDetails() {
 
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    electricityUsage: '',
-    gasUsage: '',
-    electricityType: '',
-    naturalGasType: '',
-  });
+  const {houseEnergyData, setHouseEnergyData} = useContext(FormContext)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setHouseEnergyData({
+      ...houseEnergyData,
       [name]: value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted Energy Usage:', formData);
+    console.log('Submitted Energy Usage:', houseEnergyData);
     const updatedHouseData = { 
-      ...formData,
-      electricityUsage: formData.electricityUsage || 0,
-      gasUsage: formData.gasUsage * 28 || 0,
+      ...houseEnergyData,
+      electricityUsage: houseEnergyData.electricityUsage || 0,
+      gasUsage: houseEnergyData.gasUsage * 28 || 0,
     };
     console.log('Updated House Energy Data:', updatedHouseData);
     // Code to send data to backend or handle it within the app
@@ -47,7 +43,7 @@ function HouseEnergyDetails() {
               type="number"
               id="electricityUsage"
               name="electricityUsage"
-              value={formData.electricityUsage}
+              value={houseEnergyData.electricityUsage}
               onChange={handleChange}
               required
               min="0"
@@ -64,7 +60,7 @@ function HouseEnergyDetails() {
                   type="radio"
                   name="electricityType"
                   value="Renewable"
-                  checked={formData.electricityType === 'Renewable'}
+                  checked={houseEnergyData.electricityType === 'Renewable'}
                   onChange={handleChange}
                 />
                 Renewable
@@ -74,7 +70,7 @@ function HouseEnergyDetails() {
                   type="radio"
                   name="electricityType"
                   value="Non-Renewable"
-                  checked={formData.electricityType === 'Non-Renewable'}
+                  checked={houseEnergyData.electricityType === 'Non-Renewable'}
                   onChange={handleChange}
                 />
                 Non-Renewable
@@ -84,7 +80,7 @@ function HouseEnergyDetails() {
                   type="radio"
                   name="electricityType"
                   value="Hybrid"
-                  checked={formData.electricityType === 'Hybrid'}
+                  checked={houseEnergyData.electricityType === 'Hybrid'}
                   onChange={handleChange}
                 />
                 Hybrid
@@ -98,7 +94,7 @@ function HouseEnergyDetails() {
               type="number"
               id="gasUsage"
               name="gasUsage"
-              value={formData.gasUsage}
+              value={houseEnergyData.gasUsage}
               onChange={handleChange}
               required
               min="0"
@@ -115,7 +111,7 @@ function HouseEnergyDetails() {
                   type="radio"
                   name="naturalGasType"
                   value="LPG"
-                  checked={formData.naturalGasType === 'LPG'}
+                  checked={houseEnergyData.naturalGasType === 'LPG'}
                   onChange={handleChange}
                 />
                 LPG
@@ -125,7 +121,7 @@ function HouseEnergyDetails() {
                   type="radio"
                   name="naturalGasType"
                   value="Hybrid"
-                  checked={formData.naturalGasType === 'Hybrid'}
+                  checked={houseEnergyData.naturalGasType === 'Hybrid'}
                   onChange={handleChange}
                 />
                 Hybrid

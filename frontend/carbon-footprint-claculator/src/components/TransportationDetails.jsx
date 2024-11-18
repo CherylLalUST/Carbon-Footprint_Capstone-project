@@ -39,6 +39,9 @@ function TransportationDetails() {
     if(count == 0){
       setDisplayFlag(true);
     }
+    else{
+      setDisplayFlag(false);
+    }
   };
 
   const handleChange = (index, field, value) => {

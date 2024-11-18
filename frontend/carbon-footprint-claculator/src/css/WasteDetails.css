@@ -11,13 +11,13 @@ body {
 
 .waste-details-container {
   width: 600px;  /* Fixed width */
-  height: 500px; /* Fixed height */
+  height: 550px; /* Fixed height */
   margin: 40px auto;  /* Adds top and bottom margin */
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.9); /* Slight transparency for contrast */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;  /* Allows scrolling if content exceeds the height */
+  /* Allows scrolling if content exceeds the height */
 }
 
 
