@@ -1,13 +1,9 @@
-package com.ust.carbon_footprint_statistics.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.ust.carbon_footprint_user_details.response;
 
 import java.time.LocalDate;
 
-@Document
-public class Statistics {
-    @Id
+public class StatisticsResponse {
+
     private String statisticsId;
     private LocalDate statisticsDate;
     private double totalTransportationEmission;
@@ -72,10 +68,10 @@ public class Statistics {
         this.userDetailsId = userDetailsId;
     }
 
-    public Statistics() {
+    public StatisticsResponse() {
     }
 
-    public Statistics(String statisticsId, LocalDate statisticsDate, double totalTransportationEmission, double totalWasteEmission, double totalHouseEnergyEmission, double totalEmission, String userDetailsId) {
+    public StatisticsResponse(String statisticsId, LocalDate statisticsDate, double totalTransportationEmission, double totalWasteEmission, double totalHouseEnergyEmission, double totalEmission, String userDetailsId) {
         this.statisticsId = statisticsId;
         this.statisticsDate = statisticsDate;
         this.totalTransportationEmission = totalTransportationEmission;

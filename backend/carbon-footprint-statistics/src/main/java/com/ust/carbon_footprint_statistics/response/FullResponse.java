@@ -14,6 +14,7 @@ public class FullResponse {
     private double totalWasteEmission;
     private double totalHouseEnergyEmission;
     private double totalEmission;
+    private String userDetailsId;
     private HouseEnergyResponse houseEnergyResponse;
     private TransportationResponse transportationResponse;
     private WasteResponse wasteResponse;
@@ -82,6 +83,14 @@ public class FullResponse {
         this.transportationResponse = transportationResponse;
     }
 
+    public String getUserDetailsId() {
+        return userDetailsId;
+    }
+
+    public void setUserDetailsId(String userDetailsId) {
+        this.userDetailsId = userDetailsId;
+    }
+
     public WasteResponse getWasteResponse() {
         return wasteResponse;
     }
@@ -93,13 +102,14 @@ public class FullResponse {
     public FullResponse() {
     }
 
-    public FullResponse(String statisticsId, LocalDate statisticsDate, double totalTransportationEmission, double totalWasteEmission, double totalHouseEnergyEmission, double totalEmission, HouseEnergyResponse houseEnergyResponse, TransportationResponse transportationResponse, WasteResponse wasteResponse) {
+    public FullResponse(String statisticsId, LocalDate statisticsDate, double totalTransportationEmission, double totalWasteEmission, double totalHouseEnergyEmission, double totalEmission, String userDetailsId, HouseEnergyResponse houseEnergyResponse, TransportationResponse transportationResponse, WasteResponse wasteResponse) {
         this.statisticsId = statisticsId;
         this.statisticsDate = statisticsDate;
         this.totalTransportationEmission = totalTransportationEmission;
         this.totalWasteEmission = totalWasteEmission;
         this.totalHouseEnergyEmission = totalHouseEnergyEmission;
         this.totalEmission = totalEmission;
+        this.userDetailsId = userDetailsId;
         this.houseEnergyResponse = houseEnergyResponse;
         this.transportationResponse = transportationResponse;
         this.wasteResponse = wasteResponse;

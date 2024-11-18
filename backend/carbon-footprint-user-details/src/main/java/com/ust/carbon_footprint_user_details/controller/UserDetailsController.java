@@ -2,6 +2,7 @@ package com.ust.carbon_footprint_user_details.controller;
 
 import com.ust.carbon_footprint_user_details.model.UserDetails;
 import com.ust.carbon_footprint_user_details.response.FullResponse;
+import com.ust.carbon_footprint_user_details.response.UserStatisticsResponse;
 import com.ust.carbon_footprint_user_details.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,5 +59,14 @@ public class UserDetailsController {
             return ResponseEntity.ok(deletedUserDetails);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/getStatisticsByUserDetailsId/{userDetailsId}")
+    public ResponseEntity<UserStatisticsResponse> getStatisticsByUserDetailsId(@PathVariable String userDetailsId) {
+        UserStatisticsResponse userStatisticsResponse = userDetailsService.getStatisticsByUserDetailsId(userDetailsId);
+        if (userStatisticsResponse != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(userStatisticsResponse);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

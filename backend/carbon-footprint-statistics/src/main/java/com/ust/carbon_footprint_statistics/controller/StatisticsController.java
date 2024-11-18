@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -40,6 +41,12 @@ public class StatisticsController {
             return ResponseEntity.status(HttpStatus.OK).body(fullResponse);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/getStatisticsByUserDetailsId/{userDetailsId}")
+    public ResponseEntity<List<Statistics>> getStatisticsByUserDetailsId(@PathVariable String userDetailsId){
+        List<Statistics> statistics = statisticsService.getStatisticsByUserDetailsId(userDetailsId);
+        return ResponseEntity.status(HttpStatus.OK).body(statistics);
     }
 
 }

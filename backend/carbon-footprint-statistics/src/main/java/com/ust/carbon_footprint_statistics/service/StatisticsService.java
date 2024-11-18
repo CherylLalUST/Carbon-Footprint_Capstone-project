@@ -12,6 +12,8 @@ import com.ust.carbon_footprint_statistics.response.WasteResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +33,7 @@ public class StatisticsService {
 
     // Save a new Statistics entry
     public Statistics addStatistics(Statistics statistics) {
+        statistics.setStatisticsDate(LocalDate.now());
         return statisticsRepo.save(statistics);
     }
 
@@ -86,6 +89,10 @@ public class StatisticsService {
             statistics.setStatisticsId(id);
             statisticsRepo.save(statistics);
         }
+    }
+
+    public List<Statistics> getStatisticsByUserDetailsId(String userDetailsId){
+        return statisticsRepo.findByUserDetailsId(userDetailsId);
     }
 }
 

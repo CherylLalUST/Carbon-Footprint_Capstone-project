@@ -1,16 +1,16 @@
 package com.ust.carbon_footprint_user_details.response;
 
 import java.time.LocalDate;
+import java.util.List;
 
-public class FullResponse {
+public class UserStatisticsResponse {
 
     private String userDetailsId;
     private String username;
     private int numberOfHousehold;
     private LocalDate dateAdded;
     private String countryName;
-    private UserCredentialsResponse userCredentialsResponse;
-    private CountryResponse countryResponse;
+    private List<StatisticsResponse> statisticsResponses;
 
     public String getUserDetailsId() {
         return userDetailsId;
@@ -52,32 +52,23 @@ public class FullResponse {
         this.countryName = countryName;
     }
 
-    public UserCredentialsResponse getUserCredentialsResponse() {
-        return userCredentialsResponse;
+    public List<StatisticsResponse> getStatisticsResponses() {
+        return statisticsResponses;
     }
 
-    public void setUserCredentialsResponse(UserCredentialsResponse userCredentialsResponse) {
-        this.userCredentialsResponse = userCredentialsResponse;
+    public void setStatisticsResponses(List<StatisticsResponse> statisticsResponses) {
+        this.statisticsResponses = statisticsResponses;
     }
 
-    public CountryResponse getCountryResponse() {
-        return countryResponse;
+    public UserStatisticsResponse() {
     }
 
-    public void setCountryResponse(CountryResponse countryResponse) {
-        this.countryResponse = countryResponse;
-    }
-
-    public FullResponse() {
-    }
-
-    public FullResponse(String userDetailsId, String username, int numberOfHousehold, LocalDate dateAdded, String countryName, UserCredentialsResponse userCredentialsResponse, CountryResponse countryResponse) {
+    public UserStatisticsResponse(String userDetailsId, String username, int numberOfHousehold, LocalDate dateAdded, String countryName, List<StatisticsResponse> statisticsResponses) {
         this.userDetailsId = userDetailsId;
         this.username = username;
         this.numberOfHousehold = numberOfHousehold;
         this.dateAdded = dateAdded;
         this.countryName = countryName;
-        this.userCredentialsResponse = userCredentialsResponse;
-        this.countryResponse = countryResponse;
+        this.statisticsResponses = statisticsResponses;
     }
 }
