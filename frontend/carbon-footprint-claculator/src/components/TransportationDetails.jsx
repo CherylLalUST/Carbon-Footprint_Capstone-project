@@ -9,7 +9,6 @@ function TransportationDetails() {
   const vehicleUrl = "http://localhost:9095/carbonFootprint/vehicles";
   const token = sessionStorage.getItem("token");
 
-
   const { transportationData, setTransportationData } = useContext(FormContext);
   //const [vehicles, setVehicles] = useState([]);
   //const [numberOfVehicles, setNumberOfVehicles] = useState(0);
@@ -115,6 +114,9 @@ function TransportationDetails() {
       
     }
   };
+  const handleDiscard = () => {
+    navigate('/userHomePage'); 
+  };
 
   return (
     <div className='transportation-container'>
@@ -210,6 +212,7 @@ function TransportationDetails() {
         <button type="submit" className="submit-button">
           Save & Next
         </button>
+        <button type="button" className="discard-button" onClick={handleDiscard}>Discard</button>
       </form>
     </div>
   );

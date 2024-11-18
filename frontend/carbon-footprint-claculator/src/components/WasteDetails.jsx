@@ -69,6 +69,10 @@ function WasteDetails() {
     .then(navigate("/houseEnergy"));
   };
 
+  const handleDiscard = () => {
+    navigate('/userHomePage'); 
+  };
+
   return (
     <div className="waste-details-container">
       <h2>Waste Management Details</h2>
@@ -239,6 +243,7 @@ function WasteDetails() {
           </div>
 
           <button type="submit" className="submit-button">Save & Next</button>
+          <button type="button" className="discard-button" onClick={handleDiscard}>Discard</button>
         </form>
       </div>
     </div>

@@ -67,7 +67,7 @@ function UserDetailsForm() {
         type="number"
         id="numberOfHousehold"
         name="numberOfHousehold"
-        min="1"
+        m in="1"
         value={formData.numberOfHousehold}
         onChange={handleFormChange}
         required 

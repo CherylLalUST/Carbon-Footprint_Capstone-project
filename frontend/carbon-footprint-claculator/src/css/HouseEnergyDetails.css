@@ -67,3 +67,16 @@
 .submit-button:hover {
   background-color: #45a049;
 }
+
+.discard-button {
+  padding: 0.7em;
+  background-color: #d41818;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.discard-button:hover {
+  background-color: #e71111;
+}

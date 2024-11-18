@@ -93,6 +93,7 @@ h2 {
     position: fixed; /* Fixes the navbar at the top */
     top: 0;
     left: 0;
+    height: 80px;
     width: 100vw; /* Ensures the navbar spans the entire viewport width */
     display: flex;
     justify-content: space-between;

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import '../css/HouseEnergyDetails.css';
+import { useNavigate } from 'react-router-dom';
 
 function HouseEnergyDetails() {
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     electricityUsage: '',
     gasUsage: '',
@@ -28,6 +31,10 @@ function HouseEnergyDetails() {
     console.log('Updated House Energy Data:', updatedHouseData);
     // Code to send data to backend or handle it within the app
   };
+  const handleDiscard = () => {
+    navigate('/userHomePage'); 
+  };
+
 
   return (
     <div className="house-energy-container">
@@ -127,6 +134,7 @@ function HouseEnergyDetails() {
           </div>
         </div>
         <button type="submit" className="submit-button">Track</button>
+        <button type="button" className="discard-button" onClick={handleDiscard}>Discard</button>
       </form>
     </div>
   );

@@ -7,6 +7,8 @@ import TransportationDetails from "./components/TransportationDetails";
 import WasteDetails from "./components/WasteDetails";
 import HouseEnergyDetails from "./components/HouseEnergyDetails";
 import Statistics from "./components/Statistics";
+import ViewStatistics from "./components/ViewStatistics";
+import CarbonEmissionModal from "./components/CarbonEmissionModal";
 import Navbar from "./components/Navbar";
 import { FormProvider } from "./FormContext"; // Import the context
 
@@ -29,6 +31,8 @@ function AppContent() {
         <Route path="/waste" element={<WasteDetails />} />
         <Route path="/houseEnergy" element={<HouseEnergyDetails />} />
         <Route path="/userHomePage" element={<Statistics />} />
+        <Route path="/view-statistics" element={<ViewStatistics />} />
+        <Route path="/emission" element={<CarbonEmissionModal />} />
       </Routes>
     </>
   );

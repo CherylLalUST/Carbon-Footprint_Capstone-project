@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../css/Statistics.css';
+import '../css/ViewStatistics.css';
 
-const Statistics = () => {
+const ViewStatistics = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [monthlyData, setMonthlyData] = useState([]);
   const [error, setError] = useState(null);
@@ -79,4 +79,4 @@ const Statistics = () => {
   );
 };
 
-export default Statistics;
+export default ViewStatistics;
