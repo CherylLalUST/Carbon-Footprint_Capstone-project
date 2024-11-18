@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HouseEnergyRepo extends MongoRepository<HouseEnergyDetails,String> {
+    HouseEnergyDetails findByStatisticsId(String statisticsId);
 }

@@ -72,6 +72,10 @@ public class WasteDetailsService {
         return wasteDetailsRepository.findById(wasteId);
     }
 
+    public WasteDetails getWasteDetailsByStatisticsId(String statisticsId){
+        return wasteDetailsRepository.findByStatisticsId(statisticsId);
+    }
+
     public WasteDetails addWasteDetails(WasteDetails wasteDetails) {
         calculateWasteEmission(wasteDetails);
         return wasteDetailsRepository.save(wasteDetails);

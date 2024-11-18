@@ -8,12 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
+@CrossOrigin
 @RestController
 @RequestMapping("/carbonFootprint/houseEnergy")
 public class HouseEnergyController {
 
     @Autowired
     private HouseEnergyService houseEnergyService;
+
     @PostMapping("/addDetails")
     public ResponseEntity<HouseEnergyDetails> addHouseEnergyDetails(@RequestBody HouseEnergyDetails houseEnergyDetails) {
         HouseEnergyDetails addedDetails = houseEnergyService.addHouseEnergyDetails(houseEnergyDetails);
@@ -21,7 +24,7 @@ public class HouseEnergyController {
     }
 
     // Endpoint to get house energy details by ID
-    @GetMapping("/getDetailsById/{houseId}")
+    @GetMapping("/getHouseEnergyDetailsById/{houseId}")
     public ResponseEntity<Optional<HouseEnergyDetails>> getHouseEnergyDetailsById(@PathVariable String houseId) {
         Optional<HouseEnergyDetails> houseEnergyDetails = houseEnergyService.getHouseEnergyDetailsById(houseId);
         return houseEnergyDetails.isPresent()
@@ -29,8 +32,10 @@ public class HouseEnergyController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @GetMapping("/emission")
-    public HouseEnergyDetails getEmission(@PathVariable String houseId) {
-        return houseEnergyService.getTotalHouseEmission(houseId);
+    @GetMapping("/getHouseEnergyDetailsByStatisticsId/{statisticsId}")
+    public ResponseEntity<HouseEnergyDetails> getHouseEnergyDetailsByStatisticsId(@PathVariable String statisticsId){
+        HouseEnergyDetails houseEnergyDetails = houseEnergyService.getHouseEnergyDetailsByStatisticsId(statisticsId);
+        return ResponseEntity.status(HttpStatus.OK).body(houseEnergyDetails);
     }
+
 }

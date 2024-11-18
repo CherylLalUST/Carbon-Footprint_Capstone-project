@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FormContext } from "../FormContext";
 import '../css/TransportationDetails.css';
-import { GiSouthAfrica } from 'react-icons/gi';
 
 function TransportationDetails() {
 
@@ -9,22 +9,33 @@ function TransportationDetails() {
   const vehicleUrl = "http://localhost:9095/carbonFootprint/vehicles";
   const token = sessionStorage.getItem("token");
 
-  // const [transportationDetails,setTransportationDetails] = useState({
-  //   transportationDetailsId: "",
-  //   numberOfVehicles: 0
-  // })
 
+  const { transportationData, setTransportationData } = useContext(FormContext);
+  //const [vehicles, setVehicles] = useState([]);
+  //const [numberOfVehicles, setNumberOfVehicles] = useState(0);
 
-  const [vehicles, setVehicles] = useState([]);
-  const [numberOfVehicles, setNumberOfVehicles] = useState(0);
   const [formErrors, setFormErrors] = useState([]);
   const navigate = useNavigate();
   let [displayFlag, setDisplayFlag] = useState(false);
 
   const handleVehicleCountChange = (e) => {
     const count = parseInt(e.target.value, 10);
-    setNumberOfVehicles(count);
-    setVehicles(Array(count).fill({transportationDetailsId: '', vehicleFuelType: '', vehicleDistanceTravelled: '', vehicleAvgMileage: '', pollutionCleared: true, maintenanceDone: true }));
+    // setNumberOfVehicles(count);
+    // setVehicles(Array(count).fill({transportationDetailsId: '', vehicleFuelType: '', vehicleDistanceTravelled: '', vehicleAvgMileage: '', pollutionCleared: true, maintenanceDone: true }));
+    
+    setTransportationData({
+      ...transportationData,
+      numberOfVehicles: count,
+      vehicles: Array(count).fill({
+        transportationDetailsId: '',
+        vehicleFuelType: '',
+        vehicleDistanceTravelled: '',
+        vehicleAvgMileage: '',
+        pollutionCleared: true,
+        maintenanceDone: true,
+      }),
+    });
+    
     setFormErrors(Array(count).fill({transportationDetailsId: '', vehicleFuelType: true, vehicleAvgMileage: true, vehicleDistanceTravelled: true }));
     if(count == 0){
       setDisplayFlag(true);
@@ -32,9 +43,12 @@ function TransportationDetails() {
   };
 
   const handleChange = (index, field, value) => {
-    const updatedVehicles = [...vehicles];
+    const updatedVehicles = [...transportationData.vehicles];
     updatedVehicles[index] = { ...updatedVehicles[index], [field]: value };
-    setVehicles(updatedVehicles);
+    //setVehicles(updatedVehicles);
+    setTransportationData({
+      ...transportationData, vehicles: updatedVehicles,
+    });
 
     const updatedErrors = [...formErrors];
     updatedErrors[index] = {
@@ -46,12 +60,14 @@ function TransportationDetails() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (numberOfVehicles == "") {
-      setNumberOfVehicles(0);
+    if (transportationData.numberOfVehicles == "") {
+      setTransportationData({
+        ...transportationData, numberOfVehicles: 0,
+      });
     }
-    console.log(numberOfVehicles);
+    console.log(transportationData.numberOfVehicles);
     // Check if all vehicle fields are filled out
-    const errors = vehicles.map(vehicle => ({
+    const errors = transportationData.vehicles.map(vehicle => ({
       vehicleFuelType: !!vehicle.vehicleFuelType,
       vehicleAvgMileage: !!vehicle.vehicleAvgMileage,
       vehicleDistanceTravelled: !!vehicle.vehicleDistanceTravelled,
@@ -64,14 +80,14 @@ function TransportationDetails() {
       
       fetch(transportationUrl + "/addTransportationDetails", {
         method: "POST",
-        body: JSON.stringify({numberOfVehicles}),
+        body: JSON.stringify({numberOfVehicles: transportationData.numberOfVehicles}),
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
       })
       .then((res) => res.json())
       .then((data) => {
         console.log("Received data:", data.transportationDetailsId);
         //sessionStorage.setItem("transportationDetailsId",data.transportationDetailsId);
-        let sendVehicles = vehicles.map(vehicle => ({
+        let sendVehicles = transportationData.vehicles.map(vehicle => ({
           ...vehicle,
           transportationDetailsId: data.transportationDetailsId
         }));
@@ -94,8 +110,8 @@ function TransportationDetails() {
         }
       });
 
-      console.log("number of vehicles submitted successfully:", numberOfVehicles);
-      console.log("Form submitted successfully:", vehicles);
+      console.log("number of vehicles submitted successfully:", transportationData.numberOfVehicles);
+      console.log("Form submitted successfully:", transportationData.vehicles);
       
     }
   };
@@ -109,7 +125,7 @@ function TransportationDetails() {
           Number of Vehicles:
           <input
             type="number"
-            // value={numVehicles}
+            value={transportationData.numberOfVehicles}
             onChange={handleVehicleCountChange}
             min="0"
             placeholder="Enter number of vehicles"
@@ -123,7 +139,7 @@ function TransportationDetails() {
         )}
 
         <div className="vehicle-cards">
-          {vehicles.map((vehicle, index) => (
+          {transportationData.vehicles.map((vehicle, index) => (
             <div key={index} className="vehicle-card">
               <h3>Vehicle {index + 1}</h3>
 

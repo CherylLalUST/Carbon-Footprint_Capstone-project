@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WasteDetailsRepo extends MongoRepository<WasteDetails,String> {
+    WasteDetails findByStatisticsId(String statisticsId);
 }

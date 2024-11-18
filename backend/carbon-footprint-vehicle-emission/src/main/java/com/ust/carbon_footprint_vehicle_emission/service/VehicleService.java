@@ -82,7 +82,7 @@ public class VehicleService {
 
         if(vehicle.isPollutionCleared()){
             vehicle.setVehicleCarbonEmission(vehicle.getVehicleCarbonEmission() * POLLUTION_CLEARED);
-            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
+            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleReducedCarbonEmission() * POLLUTION_CLEARED);
         }
         else{
             vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleReducedCarbonEmission() * POLLUTION_CLEARED);
@@ -90,7 +90,7 @@ public class VehicleService {
 
         if(vehicle.isMaintenanceDone()){
             vehicle.setVehicleCarbonEmission(vehicle.getVehicleCarbonEmission() * MAINTENANCE_DONE);
-            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleCarbonEmission());
+            vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleReducedCarbonEmission() * MAINTENANCE_DONE);
         }
         else {
             vehicle.setVehicleReducedCarbonEmission(vehicle.getVehicleReducedCarbonEmission() * MAINTENANCE_DONE);

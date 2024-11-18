@@ -21,13 +21,42 @@ public class TransportationDetailsService {
     private VehicleFeign vehicleFeign;
 
     public FullResponse getVehiclesByTransportationId(String transportationDetailsId){
+
+        TransportationDetails toUpdateAndSave = new TransportationDetails();
+
         TransportationDetails transportationDetails = transportationDetailsRepo.findByTransportationDetailsId(transportationDetailsId).orElse(null);
         List<VehicleResponse> vehicles = vehicleFeign.getVehiclesByTransportationId(transportationDetailsId);
         if(transportationDetails != null){
+
             FullResponse fullResponse = new FullResponse();
+
             fullResponse.setTransportationDetailsId(transportationDetails.getTransportationDetailsId());
+            toUpdateAndSave.setTransportationDetailsId(fullResponse.getTransportationDetailsId());
+
             fullResponse.setNumberOfVehicles(transportationDetails.getNumberOfVehicles());
+            toUpdateAndSave.setNumberOfVehicles(fullResponse.getNumberOfVehicles());
+
+
             fullResponse.setVehicles(vehicles);
+
+            // Calculate total emissions
+            double totalTransportationEmission = vehicles.stream()
+                    .mapToDouble(VehicleResponse::getVehicleCarbonEmission)
+                    .sum();
+
+            double totalReducedEmission = vehicles.stream()
+                    .mapToDouble(VehicleResponse::getVehicleReducedCarbonEmission)
+                    .sum();
+
+            fullResponse.setTotalTransportationEmission(totalTransportationEmission);
+            toUpdateAndSave.setTotalTransportationEmission(fullResponse.getTotalTransportationEmission());
+
+            fullResponse.setTotalReducedEmission(totalReducedEmission);
+            toUpdateAndSave.setTotalReducedEmission(fullResponse.getTotalReducedEmission());
+
+            updateTransportationDetails(toUpdateAndSave.getTransportationDetailsId(), toUpdateAndSave);
+
+
             return fullResponse;
         }
         return null;
@@ -65,5 +94,9 @@ public class TransportationDetailsService {
         else{
             return null;
         }
+    }
+
+    public TransportationDetails getTransportationByStatisticsId(String statisticsId){
+        return transportationDetailsRepo.findByStatisticsId(statisticsId);
     }
 }

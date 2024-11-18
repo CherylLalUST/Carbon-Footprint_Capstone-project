@@ -1,9 +1,14 @@
 package com.ust.carbon_footprint_statistics.service;
 
 import com.ust.carbon_footprint_statistics.feign.HouseEnergyFeign;
+import com.ust.carbon_footprint_statistics.feign.TransportationFeign;
+import com.ust.carbon_footprint_statistics.feign.WasteFeign;
 import com.ust.carbon_footprint_statistics.model.Statistics;
 import com.ust.carbon_footprint_statistics.repo.StatisticsRepo;
 import com.ust.carbon_footprint_statistics.response.FullResponse;
+import com.ust.carbon_footprint_statistics.response.HouseEnergyResponse;
+import com.ust.carbon_footprint_statistics.response.TransportationResponse;
+import com.ust.carbon_footprint_statistics.response.WasteResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +23,12 @@ public class StatisticsService {
     @Autowired
     private HouseEnergyFeign houseEnergyFeign;
 
+    @Autowired
+    private WasteFeign wasteFeign;
+
+    @Autowired
+    private TransportationFeign transportationFeign;
+
     // Save a new Statistics entry
     public Statistics addStatistics(Statistics statistics) {
         return statisticsRepo.save(statistics);
@@ -28,15 +39,52 @@ public class StatisticsService {
         return statisticsRepo.findById(houseId);
     }
 
-    public FullResponse getStatisticsByHouseId(String houseId) {
-        FullResponse fullResponse = new FullResponse();
-        Optional<Statistics> statistics = statisticsRepo.findById(houseId);
-        if (statistics.isPresent()) {
-            fullResponse.setStatistics(statistics.get());
-            fullResponse.setHouseEnergy(houseEnergyFeign.getHouseEnergyByHouseId(houseId));
+    public FullResponse getFullDetailsByStatisticsId(String statisticsId){
+
+        Statistics toUpdateAndSave = new Statistics();
+
+        Statistics statistics = statisticsRepo.findByStatisticsId(statisticsId).orElse(null);
+        System.out.println("statistics : " + statistics);
+        WasteResponse wasteResponse = wasteFeign.getWasteDetailsByStatisticsId(statisticsId);
+        System.out.println("wasteResponse : " + wasteResponse);
+        HouseEnergyResponse houseEnergyResponse = houseEnergyFeign.getHouseEnergyDetailsByStatisticsId(statisticsId);
+        System.out.println("houseEnergyResponse : " + houseEnergyResponse);
+        TransportationResponse transportationResponse = transportationFeign.getTransportationByStatisticsId(statisticsId);
+        System.out.println("transportationResponse : " + transportationResponse);
+
+        if(statistics != null){
+            FullResponse fullResponse = new FullResponse();
+
+            fullResponse.setStatisticsId(statistics.getStatisticsId());
+            toUpdateAndSave.setStatisticsId(fullResponse.getStatisticsId());
+
+            fullResponse.setStatisticsDate(statistics.getStatisticsDate());
+            toUpdateAndSave.setStatisticsDate(fullResponse.getStatisticsDate());
+
+            fullResponse.setTotalTransportationEmission(transportationResponse.getTotalTransportationEmission());
+            fullResponse.setTotalWasteEmission(wasteResponse.getTotalWasteEmission());
+            fullResponse.setTotalHouseEnergyEmission(houseEnergyResponse.getTotalHouseEmission());
+            toUpdateAndSave.setTotalTransportationEmission(fullResponse.getTotalTransportationEmission());
+            toUpdateAndSave.setTotalWasteEmission(fullResponse.getTotalWasteEmission());
+            toUpdateAndSave.setTotalHouseEnergyEmission(fullResponse.getTotalHouseEnergyEmission());
+
+            fullResponse.setTotalEmission(wasteResponse.getTotalWasteEmission() + houseEnergyResponse.getTotalHouseEmission() + transportationResponse.getTotalTransportationEmission());
+            toUpdateAndSave.setTotalEmission(fullResponse.getTotalEmission());
+
+            fullResponse.setWasteResponse(wasteResponse);
+            fullResponse.setHouseEnergyResponse(houseEnergyResponse);
+            fullResponse.setTransportationResponse(transportationResponse);
+            updateStatistics(toUpdateAndSave.getStatisticsId(),toUpdateAndSave);
             return fullResponse;
-        } else {
-            return null;
+        }
+        return null;
+    }
+
+    public void updateStatistics(String id, Statistics statistics){
+
+        if(statisticsRepo.existsById(id)){
+            statistics.setStatisticsId(id);
+            statisticsRepo.save(statistics);
         }
     }
 }

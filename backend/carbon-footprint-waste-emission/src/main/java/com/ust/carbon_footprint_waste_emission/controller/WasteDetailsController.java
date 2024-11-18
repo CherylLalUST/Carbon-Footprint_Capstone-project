@@ -41,6 +41,12 @@ public class WasteDetailsController {
             WasteDetails addedDetails = wasteDetailsService.addWasteDetails(wasteDetails);
             return ResponseEntity.status(HttpStatus.CREATED).body(addedDetails);
         }
+
+    @GetMapping("/getWasteDetailsByStatisticsId/{statisticsId}")
+    public ResponseEntity<WasteDetails> getWasteDetailsByStatisticsId(@PathVariable String statisticsId){
+        WasteDetails wasteDetails = wasteDetailsService.getWasteDetailsByStatisticsId(statisticsId);
+        return ResponseEntity.status(HttpStatus.OK).body(wasteDetails);
+    }
     }
 
 

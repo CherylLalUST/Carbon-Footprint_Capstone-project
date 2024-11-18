@@ -19,17 +19,17 @@ public class HouseEnergyService {
     private HouseEnergyRepo houseEnergyRepo;
 
         public void calculateHomeEnergyEmission(HouseEnergyDetails houseEnergyDetails) {
-            double homeEnergyEmission = 0.0;
+            double electricityEmission = 0.0;
 
             switch (houseEnergyDetails.getHouseElectricityType()) {
                 case "Non-Renewable":
-                    homeEnergyEmission = houseEnergyDetails.getHouseElectricity() * ELECTRICITY_NON_RENEWABLE_EMISSION_FACTOR;
+                    electricityEmission = houseEnergyDetails.getHouseElectricity() * ELECTRICITY_NON_RENEWABLE_EMISSION_FACTOR;
                     break;
                 case "Renewable":
-                    homeEnergyEmission = houseEnergyDetails.getHouseElectricity() * ELECTRICITY_RENEWABLE_EMISSION_FACTOR;
+                    electricityEmission = houseEnergyDetails.getHouseElectricity() * ELECTRICITY_RENEWABLE_EMISSION_FACTOR;
                     break;
                 default: // Hybrid
-                    homeEnergyEmission = houseEnergyDetails.getHouseElectricity() * ELECTRICITY_HYBRID_EMISSION_FACTOR;
+                    electricityEmission = houseEnergyDetails.getHouseElectricity() * ELECTRICITY_HYBRID_EMISSION_FACTOR;
                     break;
             }
 
@@ -37,9 +37,9 @@ public class HouseEnergyService {
                     ? houseEnergyDetails.getHouseNaturalGas() * GAS_LPG_EMISSION_FACTOR
                     : houseEnergyDetails.getHouseNaturalGas() * GAS_HYBRID_EMISSION_FACTOR;
 
-            double totalHouseEmission= homeEnergyEmission + gasEnergyEmission;
+            double totalHouseEmission= electricityEmission + gasEnergyEmission;
 
-            houseEnergyDetails.setTotalHouseEmission(homeEnergyEmission);
+            houseEnergyDetails.setTotalHouseEmission(totalHouseEmission);
 
         }
 
@@ -52,5 +52,7 @@ public class HouseEnergyService {
         return houseEnergyRepo.findById(houseId);
     }
 
-
+    public HouseEnergyDetails getHouseEnergyDetailsByStatisticsId(String statisticsId){
+        return houseEnergyRepo.findByStatisticsId(statisticsId);
+    }
 }

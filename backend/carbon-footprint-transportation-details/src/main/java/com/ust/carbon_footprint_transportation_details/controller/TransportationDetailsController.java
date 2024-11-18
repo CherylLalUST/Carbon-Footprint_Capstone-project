@@ -36,7 +36,9 @@ public class TransportationDetailsController {
 
     @PostMapping("/addTransportationDetails")
     public ResponseEntity<TransportationDetails> addTransportationDetails(@RequestBody TransportationDetails transportationDetails){
+        System.out.println("before TransportationDetails : " + transportationDetails);
         transportationDetails = transportationDetailsService.addTransportationDetails(transportationDetails);
+        System.out.println("after TransportationDetails : " + transportationDetails);
         return ResponseEntity.status(HttpStatus.CREATED).body(transportationDetails);
     }
 
@@ -65,5 +67,11 @@ public class TransportationDetailsController {
             return ResponseEntity.status(HttpStatus.OK).body(fullResponses);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/getTransportationByStatisticsId/{statisticsId}")
+    public ResponseEntity<TransportationDetails> getTransportationByStatisticsId(@PathVariable String statisticsId){
+        TransportationDetails transportationDetails = transportationDetailsService.getTransportationByStatisticsId(statisticsId);
+        return ResponseEntity.status(HttpStatus.OK).body(transportationDetails);
     }
 }
