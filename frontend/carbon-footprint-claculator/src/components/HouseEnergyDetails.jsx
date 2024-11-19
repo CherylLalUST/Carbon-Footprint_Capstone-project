@@ -5,8 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 function HouseEnergyDetails() {
 
+  const houseEnergyUrl = "http://localhost:9097/carbonFootprint/houseEnergy";
+  const token = sessionStorage.getItem("token");
+
   const navigate = useNavigate();
   const {houseEnergyData, setHouseEnergyData} = useContext(FormContext)
+  console.log(houseEnergyData.statisticsId);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +30,16 @@ function HouseEnergyDetails() {
     };
     console.log('Updated House Energy Data:', updatedHouseData);
     // Code to send data to backend or handle it within the app
+    fetch(houseEnergyUrl + "/addDetails", {
+      method: "POST",
+      body: JSON.stringify(updatedHouseData),
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      sessionStorage.setItem("houseId",data.houseId);
+      navigate("/userHomePage")
+    });
   };
   const handleDiscard = () => {
     navigate('/userHomePage'); 

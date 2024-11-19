@@ -4,11 +4,13 @@ export const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
   const [transportationData, setTransportationData] = useState({
+    statisticsId: sessionStorage.getItem("statisticsId"),
     numberOfVehicles: '',
     vehicles: [],
   });
 
   const [wasteData, setWasteData] = useState({
+    statisticsId: sessionStorage.getItem("statisticsId"),
     wasteFoodAmount: '',
     foodCompost: false,
     wastePlasticAmount: '',
@@ -24,6 +26,7 @@ export const FormProvider = ({ children }) => {
   });
 
   const [houseEnergyData, setHouseEnergyData] = useState({
+    statisticsId: sessionStorage.getItem("statisticsId"),
     electricityUsage: '',
     gasUsage: '',
     electricityType: '',

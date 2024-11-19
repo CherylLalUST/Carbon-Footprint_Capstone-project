@@ -88,7 +88,7 @@ function TransportationDetails() {
       .then((res) => res.json())
       .then((data) => {
         console.log("Received data:", data.transportationDetailsId);
-        //sessionStorage.setItem("transportationDetailsId",data.transportationDetailsId);
+        sessionStorage.setItem("transportationDetailsId",data.transportationDetailsId);
         let sendVehicles = transportationData.vehicles.map(vehicle => ({
           ...vehicle,
           transportationDetailsId: data.transportationDetailsId
@@ -107,7 +107,16 @@ function TransportationDetails() {
           })
           .then((res) => res.json())
           .then((data) => {
-            navigate("/waste");
+            fetch(transportationUrl + "/getVehiclesByTransportationId/" + sessionStorage.getItem("transportationDetailsId"),{
+              method: "GET",
+              headers: { "Authorization": `Bearer ${token}` },
+            })
+            .then((res) => res.json())
+            .then((resdata) => {
+              console.log(resdata);
+            })
+          //   // function to calc total emission
+          //   navigate("/waste");
           })
         }
       });
@@ -120,6 +129,10 @@ function TransportationDetails() {
   const handleDiscard = () => {
     navigate('/userHomePage'); 
   };
+
+  function calculateTotalTransportEmission(){
+    fetch(transportationUrl + "/getVehiclesByTransportationId/" + sessionStorage.getItem(transportationDetailsId))
+  }
 
   return (
     <div className='transportation-container'>

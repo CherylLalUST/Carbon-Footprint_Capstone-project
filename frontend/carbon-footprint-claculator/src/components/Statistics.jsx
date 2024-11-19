@@ -10,6 +10,7 @@ function Statistics() {
   let username = sessionStorage.getItem("username");
   console.log("username : " + username);
   const userDetailsUrl = "http://localhost:9092/carbonFootprint/userDetails";
+  const statisticsUrl = "http://localhost:9098/carbonFootprint/statistics"
   const token = sessionStorage.getItem("token");
 
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
@@ -30,6 +31,20 @@ function Statistics() {
         //
       });
   }, []);
+
+  function handleTrackEmissions(){
+    fetch(statisticsUrl + "/addDetails", {
+      method: "POST",
+      body: JSON.stringify({}),
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      sessionStorage.setItem("statisticsId",data.statisticsId);
+      navigate('/transportation');
+    });
+    
+  }
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -68,7 +83,7 @@ function Statistics() {
             <h4>View Statistics</h4>
             <p>Click here to view your emissions by month.</p>
           </div>
-          <div className="card" onClick={() => navigate('/transportation')}>
+          <div className="card" onClick={handleTrackEmissions}>
             <h4>Track Emissions</h4>
             <p>Click here to track emissions your Monthly Carbon Emissions!.</p>
           </div>
