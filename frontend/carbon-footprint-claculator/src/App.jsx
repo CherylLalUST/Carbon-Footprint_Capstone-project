@@ -11,6 +11,9 @@ import ViewStatistics from "./components/ViewStatistics";
 import CarbonEmissionModal from "./components/CarbonEmissionModal";
 import Navbar from "./components/Navbar";
 import { FormProvider } from "./FormContext"; // Import the context
+import { ArrowUpCircle } from 'lucide-react';
+import MonthCard from "./components/MonthCard";
+import YearSelector from "./components/YearSelector";
 
 function AppContent() {
   const location = useLocation();
@@ -33,7 +36,14 @@ function AppContent() {
         <Route path="/userHomePage" element={<Statistics />} />
         <Route path="/view-statistics" element={<ViewStatistics />} />
         <Route path="/emission" element={<CarbonEmissionModal />} />
-      </Routes>
+        <Route path="/month" element={<MonthCard />} />
+        <Route path= "/year" element={<YearSelector />} />
+        
+        
+        </Routes>
+      
+         
+      {/* </Routes> */}
     </>
   );
 }

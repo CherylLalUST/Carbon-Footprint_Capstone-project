@@ -7,18 +7,21 @@ body {
     margin: 0;  /* Remove default body margin */
     padding: 0;  /* Remove default body padding */
     z-index: 1;
+    overflow: hidden;
   }
-  
-  .transportation-container {
-      width: 500px;
-      margin: auto;
-      padding: 2em;
-      background-color: #f7f7f7;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      position: relative;  /* To stack the container above the background */
-      z-index: 1;
+
+.transportation-container {
+    width: 500px;
+    max-height: 90vh; /* Prevent the card from exceeding viewport height */
+    margin: auto;
+    padding: 2em;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;  /* To stack the container above the background */
+    z-index: 1;
+    overflow-y: auto; /* Enable vertical scrolling for the card */
   }
   
   .form-group {
