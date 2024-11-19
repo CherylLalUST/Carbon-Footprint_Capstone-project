@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../css/Login.css';
 
 export default function Login() {
@@ -50,7 +50,8 @@ export default function Login() {
                 //setGeneratedToken(data); // Update state with generated token
                 console.log(data);
                 sessionStorage.setItem("token", data);
-                navigate("/user");
+                sessionStorage.setItem("username", userCredentials.username);
+            navigate("/userHomePage");
             })
             .catch((error) => console.error("Error:", error));
 
@@ -94,6 +95,9 @@ export default function Login() {
 
                     <button type="submit" className="login-button">Login</button>
                 </form>
+                <p className="login-link">
+                    New user? <Link to="/register">Register</Link>
+                </p>
             </div>
         </>
     );

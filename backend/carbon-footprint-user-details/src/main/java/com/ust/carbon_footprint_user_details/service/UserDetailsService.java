@@ -56,6 +56,10 @@ public class UserDetailsService {
         return userDetailsRepo.findById(userDetailsId).orElse(null);
     }
 
+    public Optional<UserDetails> getUserDetailsByUsername(String username){
+        return userDetailsRepo.findByUsername(username);
+    }
+
     public List<UserDetails> getAllUserDetails(){
 
         return userDetailsRepo.findAll();

@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import '../css/UserDetailsForm.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UserDetailsForm() {
+
+  const {username} = useParams();
 
   const baseUrl = "http://localhost:9092/carbonFootprint/userDetails";
   const token = sessionStorage.getItem("token");
 
   const [formData, setFormData] = useState({
-    username: sessionStorage.getItem("username"),
+    username,
     numberOfHousehold: 1,
-    country: "",
+    countryName: "",
   });
 
   const [formErrors, setFormErrors] = useState({
     username: true,
     numberOfHousehold: true,
-    country: true,
+    countryName: true,
   });
 
   let navigate = useNavigate();
@@ -40,9 +42,9 @@ function UserDetailsForm() {
     setFormErrors({
       username: !!formData.username,
       numberOfHousehold: !!formData.numberOfHousehold,
-      country: !!formData.country,
+      countryName: !!formData.countryName,
     });
-    if (formData.username && formData.numberOfHousehold && formData.country) {
+    if (formData.username && formData.numberOfHousehold && formData.countryName) {
       // Handle valid form submission
       fetch(baseUrl + "/addUserDetails", {
         method: "POST",
@@ -50,7 +52,7 @@ function UserDetailsForm() {
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
       })
       .then((res) => res.json())
-      .then(navigate("/transportation"));
+      .then(navigate("/login"));
       console.log("Form submitted successfully:", formData);
     }
   };
@@ -79,25 +81,25 @@ function UserDetailsForm() {
     </div>
 
     <div>
-      <label htmlFor="country">Country</label>
+      <label htmlFor="countryName">countryName</label>
       <select
-        id="country"
-        name="country"
-        value={formData.country}
+        id="countryName"
+        name="countryName"
+        value={formData.countryName}
         onChange={handleFormChange}
         required
       >
-        <option value="">Select a country</option>
+        <option value="">Select a countryName</option>
         <option value="USA">USA</option>
         <option value="Australia">Australia</option>
         <option value="India">India</option>
       </select>
       <div className="error-message">
-        {formErrors.country ? "" : "Country selection is required!"}
+        {formErrors.countryName ? "" : "countryName selection is required!"}
       </div>
     </div>
 
-    <button type="submit" className="submit-button">Submit</button>
+    <button type="submit" className="submit-button">Register</button>
   </form>
 </div>
      </>

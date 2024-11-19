@@ -44,6 +44,13 @@ public class UserDetailsController {
         List<UserDetails> savedUserDetails= userDetailsService.getAllUserDetails();
         return ResponseEntity.ok(savedUserDetails);
     }
+
+    @GetMapping("/getUserDetailsByUsername/{username}")
+    public ResponseEntity<UserDetails> getUserDetailsByUsername(@PathVariable String username){
+        UserDetails savedUserDetails= userDetailsService.getUserDetailsByUsername(username).orElse(null);
+        return ResponseEntity.ok(savedUserDetails);
+    }
+
     @PutMapping("/updateUserDetails")
     public ResponseEntity<?> updateUserDetails(@PathVariable String userDetailsId,@RequestBody UserDetails user){
         UserDetails updatedUserDetails= userDetailsService.updateUserDetails(userDetailsId,user);
