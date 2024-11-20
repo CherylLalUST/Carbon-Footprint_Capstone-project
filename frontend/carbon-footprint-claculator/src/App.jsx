@@ -14,6 +14,7 @@ import { FormProvider } from "./FormContext"; // Import the context
 import { ArrowUpCircle } from 'lucide-react';
 import MonthCard from "./components/MonthCard";
 import YearSelector from "./components/YearSelector";
+import EmissionSummary from "./components/EmissionSummary";
 
 function AppContent() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function AppContent() {
         <Route path="/emission" element={<CarbonEmissionModal />} />
         <Route path="/month" element={<MonthCard />} />
         <Route path= "/year" element={<YearSelector />} />
+        <Route path="/summary" element={<EmissionSummary />}></Route>
         
         
         </Routes>

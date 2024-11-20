@@ -5,13 +5,12 @@ body {
   background-size: cover;
   background-attachment: fixed;  /* Keeps the background fixed when scrolling */
   min-height: 100vh;
-  margin: 0;
   padding: 0;
 }
 
 .waste-details-container {
   width: 600px;  /* Fixed width */
-  height: 550px; /* Fixed height */
+  height: auto; /* Fixed height */
   margin: 40px auto;  /* Adds top and bottom margin */
   padding: 20px;
   margin-top: 223px;
