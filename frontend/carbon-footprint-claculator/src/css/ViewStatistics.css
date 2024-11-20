@@ -1,18 +1,15 @@
+
+
 .app-container {
-  max-height: 100vh;
-  width: 100%;
-  /* background: linear-gradient(to bottom right, #f3f8ff, #d6bfa3); */
-  /* padding: 2rem; */
-  /* display: flex; */
-  /* margin: 50px; */
-  /* margin-top: 50px; */
+  height: 80vh; /* Ensure it fills the entire height of the screen */
+  width: 100vw;  /* Ensure it fills the entire width of the screen */
+  display: flex;
+  margin-top: 44px;
   justify-content: center;
   align-items: flex-start; /* Align content at the top */
-  /* color: #4a5568; */
-  overflow: scroll;
-  /* overflow-y: auto; Allow vertical scrolling */
-  /* box-sizing: border-box; Include padding in width/height */
+  overflow-y: auto; /* Allow vertical scrolling */
 }
+
 
 /* Ensure content fits properly */
 .content-wrapper {
@@ -24,14 +21,15 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   box-sizing: border-box; /* Ensures padding doesn't overflow */
-  /* overflow: y; Prevent accidental scrollbars */
+  overflow: y; /* Prevent accidental scrollbars*/
 }
 
 /* Add a fallback for body */
 body {
-  margin: 0;
-  padding: 0;
-  /* overflow: scroll; */
+  /* margin: 0; */
+  /* padding: 0; */
+  width: 100%;
+  overflow: hidden;
 }
 
 /* Header styles */

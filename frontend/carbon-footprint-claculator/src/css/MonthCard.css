@@ -1,97 +1,96 @@
 /* Main card styles */
 .month-card {
-    background: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    transition: box-shadow 0.2s;
-  }
-  
-  .month-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Header section */
-  .month-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .month-name {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-  
-  /* Indicator for increase or decrease */
-  .indicator {
-    display: flex;
-    align-items: center;
-  }
-  
-  .indicator.increase {
-    color: #e53e3e; /* Red for increase */
-  }
-  
-  .indicator.decrease {
-    color: #38a169; /* Green for decrease */
-  }
-  
-  .icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  
-  /* Emission details */
-  .emission-details .emission-value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .unit {
-    font-size: 0.875rem;
-    color: #777;
-  }
-  
-  .change {
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-  }
-  
-  .change.increase {
-    color: #e53e3e;
-  }
-  
-  .change.decrease {
-    color: #38a169;
-  }
-  
-  /* Progress bar */
-  .progress-section {
-    margin-top: 1rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid #f0f0f0;
-  }
-  
-  .progress-bar {
-    height: 0.5rem;
-    background: #eee;
-    border-radius: 0.25rem;
-    overflow: hidden;
-  }
-  
-  .progress {
-    height: 100%;
-    transition: width 0.3s;
-  }
-  
-  .bg-red {
-    background: #e53e3e;
-  }
-  
-  .bg-green {
-    background: #38a169;
-  }
-  
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: box-shadow 0.2s;
+ }
+
+ .month-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+ }
+
+ /* Header section */
+ .month-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+ }
+
+ .month-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+ }
+
+ /* Indicator for increase or decrease */
+ .indicator {
+  display: flex;
+  align-items: center;
+ }
+
+ .indicator.increase {
+  color: #e53e3e; /* Red for increase */
+ }
+
+ .indicator.decrease {
+  color: #38a169; /* Green for decrease */
+ }
+
+ .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+ }
+
+ /* Emission details */
+ .emission-details .emission-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+ }
+
+ .unit {
+  font-size: 0.875rem;
+  color: #777;
+ }
+
+ .change {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+ }
+
+ .change.increase {
+  color: #e53e3e;
+ }
+
+ .change.decrease {
+  color: #38a169;
+ }
+
+ /* Progress bar */
+ .progress-section {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #f0f0f0;
+ }
+
+ .progress-bar {
+  height: 0.5rem;
+  background: #eee;
+  border-radius: 0.25rem;
+  overflow: hidden;
+ }
+
+ .progress {
+  height: 100%;
+  transition: width 0.3s;
+ }
+
+ .bg-red {
+  background: #e53e3e;
+ }
+
+ .bg-green {
+  background: #38a169;
+ }
