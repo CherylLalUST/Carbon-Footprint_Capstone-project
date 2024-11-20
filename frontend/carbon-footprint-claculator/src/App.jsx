@@ -23,8 +23,11 @@ function AppContent() {
 
   return (
     <>
-      {/* Conditionally render Navbar */}
-      {shouldDisplayNavbar && <Navbar />}
+    <div>
+{/* Conditionally render Navbar */}
+{shouldDisplayNavbar && <Navbar />}
+    </div>
+      <div>
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/register" element={<Register />} />
@@ -41,6 +44,8 @@ function AppContent() {
         
         
         </Routes>
+      </div>
+      
       
          
       {/* </Routes> */}

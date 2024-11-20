@@ -12,8 +12,9 @@ body {
 
 .transportation-container {
     width: 500px;
-    max-height: 90vh; /* Prevent the card from exceeding viewport height */
-    margin: auto;
+    max-height: 100vh; 
+    margin: 40px auto;/* Prevent the card from exceeding viewport height */
+    margin-top: 240px;
     padding: 2em;
     background-color: #f7f7f7;
     border-radius: 8px;

@@ -37,7 +37,7 @@
   position: fixed; /* Fix it to the top */
   top: 0;
   width: 100%; /* Full width of the viewport */
-  z-index: 1000; /* Ensure it stays above other content */
+  z-index: 1; /*Ensure it stays above other content */
 }
 
 .navbar ul {
