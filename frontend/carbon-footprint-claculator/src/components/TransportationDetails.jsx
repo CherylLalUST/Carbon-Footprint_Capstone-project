@@ -25,6 +25,7 @@ function TransportationDetails() {
     setTransportationData({
       ...transportationData,
       numberOfVehicles: count,
+      statisticsId: sessionStorage.getItem("statisticsId"),
       vehicles: Array(count).fill({
         transportationDetailsId: '',
         vehicleFuelType: '',
@@ -64,10 +65,10 @@ function TransportationDetails() {
     e.preventDefault();
     if (transportationData.numberOfVehicles == "") {
       setTransportationData({
-        ...transportationData, numberOfVehicles: 0,
+        ...transportationData, numberOfVehicles: 0, statisticsId: sessionStorage.getItem("statisticsId"),
       });
     }
-    console.log(transportationData.numberOfVehicles);
+    console.log(transportationData);
     // Check if all vehicle fields are filled out
     const errors = transportationData.vehicles.map(vehicle => ({
       vehicleFuelType: !!vehicle.vehicleFuelType,
@@ -79,10 +80,11 @@ function TransportationDetails() {
     setFormErrors(errors);
 
     if (isValid) {
-      
+      console.log("if ;", transportationData);
+
       fetch(transportationUrl + "/addTransportationDetails", {
         method: "POST",
-        body: JSON.stringify({numberOfVehicles: transportationData.numberOfVehicles}),
+        body: JSON.stringify(transportationData),
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
       })
       .then((res) => res.json())
@@ -116,7 +118,7 @@ function TransportationDetails() {
               console.log(resdata);
             })
           //   // function to calc total emission
-          //   navigate("/waste");
+          navigate("/waste");
           })
         }
       });

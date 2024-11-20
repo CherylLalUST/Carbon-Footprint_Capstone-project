@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @FeignClient(name="carbon-footprint-statistics"
-        ,url="http://localhost:9093/carbonFootprint/statistics")
+        ,url="http://localhost:9098/carbonFootprint/statistics")
 public interface StatisticsFeign {
     @GetMapping("/getStatisticsByUserDetailsId/{userDetailsId}")
     public List<StatisticsResponse> getStatisticsByUserDetailsId(@PathVariable("userDetailsId") String userDetailsId);

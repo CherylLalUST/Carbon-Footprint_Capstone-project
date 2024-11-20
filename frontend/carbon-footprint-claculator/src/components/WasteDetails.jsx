@@ -9,7 +9,7 @@ function WasteDetails() {
   const token = sessionStorage.getItem("token");
 
   const {wasteData, setWasteData} = useContext(FormContext);
-  console.log(wasteData.statsticsId);
+  //console.log(wasteData.statsticsId);
 
   const [displayFlag, setDisplayFlag] = useState(false);
   let navigate = useNavigate();
@@ -39,6 +39,7 @@ function WasteDetails() {
     e.preventDefault();
     const updatedWasteData = { 
       ...wasteData,
+      statisticsId: sessionStorage.getItem("statisticsId"),
       wasteFoodAmount: wasteData.wasteFoodAmount || 0,
       wastePlasticAmount: wasteData.wastePlasticAmount || 0,
       wastePaperAmount: wasteData.wastePaperAmount || 0,

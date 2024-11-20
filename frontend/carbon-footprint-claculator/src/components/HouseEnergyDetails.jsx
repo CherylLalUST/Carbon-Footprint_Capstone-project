@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom';
 function HouseEnergyDetails() {
 
   const houseEnergyUrl = "http://localhost:9097/carbonFootprint/houseEnergy";
+  const statisticsUrl = "http://localhost:9098/carbonFootprint/statistics";
   const token = sessionStorage.getItem("token");
 
   const navigate = useNavigate();
-  const {houseEnergyData, setHouseEnergyData} = useContext(FormContext)
+  const {houseEnergyData, setHouseEnergyData} = useContext(FormContext);
   console.log(houseEnergyData.statisticsId);
 
   const handleChange = (e) => {
@@ -25,8 +26,9 @@ function HouseEnergyDetails() {
     console.log('Submitted Energy Usage:', houseEnergyData);
     const updatedHouseData = { 
       ...houseEnergyData,
-      electricityUsage: houseEnergyData.electricityUsage || 0,
-      gasUsage: houseEnergyData.gasUsage * 28 || 0,
+      statisticsId: sessionStorage.getItem("statisticsId"),
+      houseElectricity: houseEnergyData.houseElectricity || 0,
+      houseNaturalGas: houseEnergyData.houseNaturalGas * 28 || 0,
     };
     console.log('Updated House Energy Data:', updatedHouseData);
     // Code to send data to backend or handle it within the app
@@ -36,8 +38,17 @@ function HouseEnergyDetails() {
       headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
     })
     .then((res) => res.json())
-    .then((data) => {
-      sessionStorage.setItem("houseId",data.houseId);
+    .then((houseData) => {
+      sessionStorage.setItem("houseId",houseData.houseId);
+      console.log("house id: " + sessionStorage.getItem("houseId"));
+      fetch(statisticsUrl + "/getFullDetailsByStatisticsId/" + sessionStorage.getItem("statisticsId"),{
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` },
+      })
+      .then((res) => res.json())
+      .then((resdata) => {
+        console.log(resdata);
+      });
       navigate("/userHomePage")
     });
   };
@@ -52,12 +63,12 @@ function HouseEnergyDetails() {
       <form onSubmit={handleSubmit} className="house-energy-form">
         <div className="input-card">
           <div className="form-field">
-            <label htmlFor="electricityUsage">Electricity Usage (kWh):</label>
+            <label htmlFor="houseElectricity">Electricity Usage (kWh):</label>
             <input
               type="number"
-              id="electricityUsage"
-              name="electricityUsage"
-              value={houseEnergyData.electricityUsage}
+              id="houseElectricity"
+              name="houseElectricity"
+              value={houseEnergyData.houseElectricity}
               onChange={handleChange}
               required
               min="0"
@@ -72,9 +83,9 @@ function HouseEnergyDetails() {
               <label>
                 <input
                   type="radio"
-                  name="electricityType"
+                  name="houseElectricityType"
                   value="Renewable"
-                  checked={houseEnergyData.electricityType === 'Renewable'}
+                  checked={houseEnergyData.houseElectricityType === 'Renewable'}
                   onChange={handleChange}
                 />
                 Renewable
@@ -82,9 +93,9 @@ function HouseEnergyDetails() {
               <label>
                 <input
                   type="radio"
-                  name="electricityType"
+                  name="houseElectricityType"
                   value="Non-Renewable"
-                  checked={houseEnergyData.electricityType === 'Non-Renewable'}
+                  checked={houseEnergyData.houseElectricityType === 'Non-Renewable'}
                   onChange={handleChange}
                 />
                 Non-Renewable
@@ -92,9 +103,9 @@ function HouseEnergyDetails() {
               <label>
                 <input
                   type="radio"
-                  name="electricityType"
+                  name="houseElectricityType"
                   value="Hybrid"
-                  checked={houseEnergyData.electricityType === 'Hybrid'}
+                  checked={houseEnergyData.houseElectricityType === 'Hybrid'}
                   onChange={handleChange}
                 />
                 Hybrid
@@ -103,12 +114,12 @@ function HouseEnergyDetails() {
           </div>
 
           <div className="form-field">
-            <label htmlFor="gasUsage">Gas Usage (cylinders):</label>
+            <label htmlFor="houseNaturalGas">Gas Usage (cylinders):</label>
             <input
               type="number"
-              id="gasUsage"
-              name="gasUsage"
-              value={houseEnergyData.gasUsage}
+              id="houseNaturalGas"
+              name="houseNaturalGas"
+              value={houseEnergyData.houseNaturalGas}
               onChange={handleChange}
               required
               min="0"
@@ -123,9 +134,9 @@ function HouseEnergyDetails() {
               <label>
                 <input
                   type="radio"
-                  name="naturalGasType"
+                  name="houseNaturalGasType"
                   value="LPG"
-                  checked={houseEnergyData.naturalGasType === 'LPG'}
+                  checked={houseEnergyData.houseNaturalGasType === 'LPG'}
                   onChange={handleChange}
                 />
                 LPG
@@ -133,9 +144,9 @@ function HouseEnergyDetails() {
               <label>
                 <input
                   type="radio"
-                  name="naturalGasType"
+                  name="houseNaturalGasType"
                   value="Hybrid"
-                  checked={houseEnergyData.naturalGasType === 'Hybrid'}
+                  checked={houseEnergyData.houseNaturalGasType === 'Hybrid'}
                   onChange={handleChange}
                 />
                 Hybrid

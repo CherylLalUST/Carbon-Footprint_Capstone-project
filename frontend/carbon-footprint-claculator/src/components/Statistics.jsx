@@ -35,12 +35,13 @@ function Statistics() {
   function handleTrackEmissions(){
     fetch(statisticsUrl + "/addDetails", {
       method: "POST",
-      body: JSON.stringify({}),
+      body: JSON.stringify({userDetailsId : userDetails.userDetailsId}),
       headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
     })
     .then((res) => res.json())
     .then((data) => {
       sessionStorage.setItem("statisticsId",data.statisticsId);
+      console.log(sessionStorage.getItem("statisticsId"));
       navigate('/transportation');
     });
     

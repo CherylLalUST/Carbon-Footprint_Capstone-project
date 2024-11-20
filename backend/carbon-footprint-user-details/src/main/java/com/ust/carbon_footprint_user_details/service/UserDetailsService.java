@@ -89,7 +89,9 @@ public class UserDetailsService {
             userStatisticsResponse.setNumberOfHousehold(userDetails.getNumberOfHousehold());
             userStatisticsResponse.setDateAdded(userDetails.getDateAdded());
             userStatisticsResponse.setCountryName(userDetails.getCountryName());
+            userStatisticsResponse.setUserDetailsId(userDetails.getUserDetailsId());
             userStatisticsResponse.setStatisticsResponses(statisticsResponses);
+            
             return userStatisticsResponse;
         }
         return null;

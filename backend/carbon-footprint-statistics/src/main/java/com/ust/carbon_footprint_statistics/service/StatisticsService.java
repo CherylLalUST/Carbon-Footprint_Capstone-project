@@ -63,6 +63,9 @@ public class StatisticsService {
 
             fullResponse.setStatisticsDate(statistics.getStatisticsDate());
             toUpdateAndSave.setStatisticsDate(fullResponse.getStatisticsDate());
+            
+            fullResponse.setUserDetailsId(statistics.getUserDetailsId());
+            toUpdateAndSave.setUserDetailsId(fullResponse.getUserDetailsId());
 
             fullResponse.setTotalTransportationEmission(transportationResponse.getTotalTransportationEmission());
             fullResponse.setTotalWasteEmission(wasteResponse.getTotalWasteEmission());

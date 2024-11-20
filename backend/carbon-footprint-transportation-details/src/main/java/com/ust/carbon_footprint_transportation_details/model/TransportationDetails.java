@@ -62,4 +62,13 @@ public class TransportationDetails {
         this.totalReducedEmission = totalReducedEmission;
         this.statisticsId = statisticsId;
     }
+
+	@Override
+	public String toString() {
+		return "TransportationDetails [transportationDetailsId=" + transportationDetailsId + ", numberOfVehicles="
+				+ numberOfVehicles + ", totalTransportationEmission=" + totalTransportationEmission
+				+ ", totalReducedEmission=" + totalReducedEmission + ", statisticsId=" + statisticsId + "]";
+	}
+    
+    
 }

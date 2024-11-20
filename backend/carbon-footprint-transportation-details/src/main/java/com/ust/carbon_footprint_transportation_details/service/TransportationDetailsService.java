@@ -33,6 +33,9 @@ public class TransportationDetailsService {
             fullResponse.setTransportationDetailsId(transportationDetails.getTransportationDetailsId());
             toUpdateAndSave.setTransportationDetailsId(fullResponse.getTransportationDetailsId());
 
+            fullResponse.setStatisticsId(transportationDetails.getStatisticsId());
+            toUpdateAndSave.setStatisticsId(fullResponse.getStatisticsId());
+            
             fullResponse.setNumberOfVehicles(transportationDetails.getNumberOfVehicles());
             toUpdateAndSave.setNumberOfVehicles(fullResponse.getNumberOfVehicles());
 
