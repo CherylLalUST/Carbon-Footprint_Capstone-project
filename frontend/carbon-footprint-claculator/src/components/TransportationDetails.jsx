@@ -13,7 +13,8 @@ function TransportationDetails() {
   //const [vehicles, setVehicles] = useState([]);
   //const [numberOfVehicles, setNumberOfVehicles] = useState(0);
 
-  const [formErrors, setFormErrors] = useState([]);
+  //const [formErrors, setFormErrors] = useState([]);
+  const {formErrors, setFormErrors} = useContext(FormContext);
   const navigate = useNavigate();
   let [displayFlag, setDisplayFlag] = useState(false);
 
@@ -131,10 +132,6 @@ function TransportationDetails() {
   const handleDiscard = () => {
     navigate('/userHomePage'); 
   };
-
-  function calculateTotalTransportEmission(){
-    fetch(transportationUrl + "/getVehiclesByTransportationId/" + sessionStorage.getItem(transportationDetailsId))
-  }
 
   return (
     <div className='transportation-container'>

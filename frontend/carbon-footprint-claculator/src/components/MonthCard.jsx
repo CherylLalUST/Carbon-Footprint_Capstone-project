@@ -1,14 +1,14 @@
 // import React from 'react';
 // import { ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
 
-// function MonthCard({ month, emission, prevEmission, index }) {
+// function MonthCard({ month, year, emission, prevEmission, index, details }) {
 //   const isIncrease = prevEmission !== null && emission > prevEmission;
 
 //   return (
 //     <div className="month-card">
-//       {/* Header with month name and icon */}
+//       {/* Header with month name and year */}
 //       <div className="month-card-header">
-//         <h3 className="month-name">{month}</h3>
+//         <h3 className="month-name">{month} {year}</h3>
 //         {index > 0 && (
 //           <div className={`indicator ${isIncrease ? 'increase' : 'decrease'}`}>
 //             {isIncrease ? (
@@ -34,6 +34,15 @@
 //         )}
 //       </div>
 
+//       {/* Individual emissions */}
+//       {details && (
+//         <div className="individual-emissions">
+//           <p>🚗: {details.transportation.toFixed(1)} kg CO₂</p>
+//           <p>🗑️: {details.waste.toFixed(1)} kg CO₂</p>
+//           <p>⚡: {details.houseEnergy.toFixed(1)} kg CO₂</p>
+//         </div>
+//       )}
+
 //       {/* Progress bar */}
 //       <div className="progress-section">
 //         <div className="progress-bar">
@@ -57,28 +66,27 @@
 
 
 
-
-
-
-
 import React from 'react';
 import { ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-function MonthCard({ month, year, emission, prevEmission, index }) {
+function MonthCard({ month, year, emission, prevEmission, index, details }) {
   const isIncrease = prevEmission !== null && emission > prevEmission;
+  let navigate = useNavigate();
 
   return (
     <div className="month-card">
       {/* Header with month name and year */}
       <div className="month-card-header">
-        <h3 className="month-name">{month} {year}</h3> {/* Display the year here */}
+        <h3 className="month-name">{month} {year}</h3>
         {index > 0 && (
           <div className={`indicator ${isIncrease ? 'increase' : 'decrease'}`}>
             {isIncrease ? (
-              <ArrowUpCircle className="icon" />
+              <ArrowUpCircle className="icon" color="#e53e3e" />
             ) : (
-              <ArrowDownCircle className="icon" />
+              <ArrowDownCircle className="icon" color="#38a169" />
             )}
+
           </div>
         )}
       </div>
@@ -97,6 +105,19 @@ function MonthCard({ month, year, emission, prevEmission, index }) {
         )}
       </div>
 
+      {/* Individual emissions or note */}
+      {emission === 0 ? (
+        <p className="note-message" style={{ color: '#C49102', fontSize: '0.8em', marginTop: '1em' }}>Note: You did not track for this month</p>
+      ) : (
+        details && (
+          <div className="individual-emissions">
+            <p>🚗: {details.transportation.toFixed(1)} kg CO₂</p>
+            <p>🗑️: {details.waste.toFixed(1)} kg CO₂</p>
+            <p>⚡: {details.houseEnergy.toFixed(1)} kg CO₂</p>
+          </div>
+        )
+      )}
+
       {/* Progress bar */}
       <div className="progress-section">
         <div className="progress-bar">
@@ -108,9 +129,9 @@ function MonthCard({ month, year, emission, prevEmission, index }) {
           ></div>
         </div>
       </div>
+      {/* <button className="submit-button" onClick={() => (navigate("/summary"))}>Monthly Summary</button> */}
     </div>
   );
 }
 
 export default MonthCard;
-

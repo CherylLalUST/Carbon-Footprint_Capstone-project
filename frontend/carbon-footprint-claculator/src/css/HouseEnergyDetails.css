@@ -1,12 +1,14 @@
 .house-energy-container {
   width: 550px;
   margin: auto;
-  margin-top: 223px;
+  margin-top: 150px;
+  max-height: 80vh;
   padding: 2em;
   background-color: #f7f7f7;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  overflow-y: auto;
 }
 
 .house-energy-form {

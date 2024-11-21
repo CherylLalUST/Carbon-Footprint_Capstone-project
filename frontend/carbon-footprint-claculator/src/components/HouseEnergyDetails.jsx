@@ -49,7 +49,7 @@ function HouseEnergyDetails() {
       .then((resdata) => {
         console.log(resdata);
       });
-      navigate("/userHomePage")
+      navigate("/summary")
     });
   };
   const handleDiscard = () => {

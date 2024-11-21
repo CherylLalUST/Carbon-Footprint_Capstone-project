@@ -94,3 +94,19 @@
  .bg-green {
   background: #38a169;
  }
+
+ .individual-emissions {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  text-align: center; /* Ensure text is centered */
+}
+
+.individual-emissions p {
+  margin: 2px 0;
+}
+

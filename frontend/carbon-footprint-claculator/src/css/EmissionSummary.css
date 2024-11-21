@@ -24,16 +24,24 @@
 
 
 
-
-
   .emission-summary-container {
     margin: 2em auto;
     padding: 2em;
-    width: 60%;
+    width: 50%;
+    max-height: 90vh;
+    margin-top: 255px;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     font-family: Arial, sans-serif;
+    overflow: auto; 
+    height: 80vh; /* Ensure it fills the entire height of the screen */
+    /* width: 100vw;  Ensure it fills the entire width of the screen */
+    /* display: flex; */
+    margin-top: 66px;
+    justify-content: center;
+    align-items: flex-start; /* Align content at the top */
+    overflow-y: auto;
   }
   
   .emission-details p {

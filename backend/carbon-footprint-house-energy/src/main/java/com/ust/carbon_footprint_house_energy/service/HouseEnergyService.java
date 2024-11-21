@@ -13,7 +13,7 @@ public class HouseEnergyService {
     private static final double ELECTRICITY_RENEWABLE_EMISSION_FACTOR = 0.02;
     private static final double ELECTRICITY_HYBRID_EMISSION_FACTOR=0.45;
     private static final double  GAS_HYBRID_EMISSION_FACTOR = 1.27;
-    private static final double  GAS_LPG_EMISSION_FACTOR = 2.98*14.2;
+    private static final double  GAS_LPG_EMISSION_FACTOR = 2.98;
 
     @Autowired
     private HouseEnergyRepo houseEnergyRepo;

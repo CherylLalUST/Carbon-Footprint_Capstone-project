@@ -9,6 +9,8 @@ export const FormProvider = ({ children }) => {
     vehicles: [],
   });
 
+  const [formErrors, setFormErrors] = useState([]);
+
   const [wasteData, setWasteData] = useState({
     statisticsId: '',
     wasteFoodAmount: '',
@@ -38,6 +40,8 @@ export const FormProvider = ({ children }) => {
       value={{
         transportationData,
         setTransportationData,
+        formErrors,
+        setFormErrors,
         wasteData,
         setWasteData,
         houseEnergyData,

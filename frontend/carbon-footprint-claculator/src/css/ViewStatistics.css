@@ -120,5 +120,22 @@ body {
 
 }
 
+.total-yearly-emission {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+  background-color: #4CAF50;
+  backdrop-filter: blur(10px);
+}
 
+.total-yearly-emission h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
+.total-yearly-emission p {
+  font-size: 1.3rem;
+  color: #133a1a; /* Optional: Add a color for emphasis */
+}

@@ -85,7 +85,7 @@ function Statistics() {
             <p>What is Carbon Emission?</p>
           </div>
           <div className="navbar-center">
-            <h1 onClick={()=> (navigate("/userHomePage"))} style={{ cursor: "pointer" }}>Carbon-Wise</h1>
+            <h1 onClick={()=> (navigate("/userHomePage"))} style={{ cursor: "pointer" }}>Carbon Print</h1>
             <p>Welcome {userDetails.username}, you're tracking for {userDetails.numberOfHousehold} people!</p>
           </div>
           <div className="navbar-right">
