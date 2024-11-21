@@ -176,7 +176,7 @@ function TransportationDetails() {
               </label>
 
               <label>
-                Distance Travelled:
+                Distance Travelled(Km/month):
                 <input
                   type="text"
                   value={vehicle.vehicleDistanceTravelled}

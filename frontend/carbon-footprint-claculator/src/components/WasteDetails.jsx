@@ -75,7 +75,7 @@ function WasteDetails() {
           <div className="scrollable-form">
             {/* Food Waste */}
             <div className="waste-item" style={{ marginTop: '0.7em' }}>
-              <label style={{ marginLeft: '2em' }}>Food Waste (kg):</label>
+              <label style={{ marginLeft: '2em' }}>Food Waste (kg/month):</label>
               <input
                 type="number"
                 step=".1"
@@ -102,7 +102,7 @@ function WasteDetails() {
 
             {/* Plastic Waste */}
             <div className="waste-item">
-              <label style={{ marginLeft: '2em' }}>Plastic Waste (kg):</label>
+              <label style={{ marginLeft: '2em' }}>Plastic Waste (kg/month):</label>
               <input
                 type="number"
                 step=".1"
@@ -129,7 +129,7 @@ function WasteDetails() {
 
             {/* Paper Waste */}
             <div className="waste-item">
-              <label style={{ marginLeft: '2em' }}>Paper Waste (kg):</label>
+              <label style={{ marginLeft: '2em' }}>Paper Waste (kg/month):</label>
               <input
                 type="number"
                 step=".1"
@@ -156,7 +156,7 @@ function WasteDetails() {
 
             {/* Metal Waste */}
             <div className="waste-item">
-              <label style={{ marginLeft: '2em' }}>Metal Waste (kg):</label>
+              <label style={{ marginLeft: '2em' }}>Metal Waste (kg/month):</label>
               <input
                 type="number"
                 step=".1"
@@ -183,7 +183,7 @@ function WasteDetails() {
 
             {/* Glass Waste */}
             <div className="waste-item">
-              <label style={{ marginLeft: '2em' }}>Glass Waste (kg):</label>
+              <label style={{ marginLeft: '2em' }}>Glass Waste (kg/month):</label>
               <input
                 type="number"
                 step=".1"
@@ -210,7 +210,7 @@ function WasteDetails() {
 
             {/* E-waste */}
             <div className="waste-item">
-              <label style={{ marginLeft: '2em' }}>E-Waste (kg):</label>
+              <label style={{ marginLeft: '2em' }}>E-Waste (kg/month):</label>
               <input
                 type="number"
                 step=".1"

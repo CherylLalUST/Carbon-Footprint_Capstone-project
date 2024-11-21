@@ -63,7 +63,7 @@ function HouseEnergyDetails() {
       <form onSubmit={handleSubmit} className="house-energy-form">
         <div className="input-card">
           <div className="form-field">
-            <label htmlFor="houseElectricity">Electricity Usage (kWh):</label>
+            <label htmlFor="houseElectricity">Electricity Usage (kWh/month):</label>
             <input
               type="number"
               id="houseElectricity"
@@ -114,7 +114,7 @@ function HouseEnergyDetails() {
           </div>
 
           <div className="form-field">
-            <label htmlFor="houseNaturalGas">Gas Usage (cylinders):</label>
+            <label htmlFor="houseNaturalGas">Gas Usage (cylinders/month):</label>
             <input
               type="number"
               id="houseNaturalGas"
