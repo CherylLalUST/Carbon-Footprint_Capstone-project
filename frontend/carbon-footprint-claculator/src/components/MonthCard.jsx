@@ -111,9 +111,9 @@ function MonthCard({ month, year, emission, prevEmission, index, details }) {
       ) : (
         details && (
           <div className="individual-emissions">
-            <p>🚗: {details.transportation.toFixed(1)} kg CO₂</p>
-            <p>🗑️: {details.waste.toFixed(1)} kg CO₂</p>
-            <p>⚡: {details.houseEnergy.toFixed(1)} kg CO₂</p>
+            <p>🚗: {details.transportation.toFixed(1)} KgCO₂e of GHG emissions</p>
+            <p>🗑️: {details.waste.toFixed(1)} KgCO₂e of GHG emissions</p>
+            <p>⚡: {details.houseEnergy.toFixed(1)} KgCO₂e of GHG emissions</p>
           </div>
         )
       )}

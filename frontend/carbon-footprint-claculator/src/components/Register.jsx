@@ -61,7 +61,7 @@ export default function Register() {
     return (
         <div className="register-container">
             <h2>Register</h2>
-            <div>{errorRegister}</div>
+            <div style={{ color: 'red', fontSize: '0.8em' }}>{errorRegister}</div>
             <form onSubmit={(e) => handleRegister(e)} className="register-form">
                 <div>
                     <label htmlFor="username">Username </label>

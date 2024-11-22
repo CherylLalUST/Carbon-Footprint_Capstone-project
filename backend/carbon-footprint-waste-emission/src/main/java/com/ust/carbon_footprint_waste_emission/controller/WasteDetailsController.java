@@ -47,6 +47,15 @@ public class WasteDetailsController {
         WasteDetails wasteDetails = wasteDetailsService.getWasteDetailsByStatisticsId(statisticsId);
         return ResponseEntity.status(HttpStatus.OK).body(wasteDetails);
     }
+
+    @DeleteMapping("/deleteByWasteId/{wasteId}")
+    public ResponseEntity<?> deleteByWasteId(@PathVariable String wasteId){
+        WasteDetails returnedWasteDetails = wasteDetailsService.deleteByWasteId(wasteId);
+        if(returnedWasteDetails != null){
+            return ResponseEntity.status(HttpStatus.OK).body(returnedWasteDetails);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No records found for given ID.");
     }
+}
 
 

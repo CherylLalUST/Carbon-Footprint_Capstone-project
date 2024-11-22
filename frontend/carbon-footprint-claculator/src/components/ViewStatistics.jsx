@@ -295,7 +295,7 @@ function ViewStatistics() {
               {/* Total yearly emission */}
               <div className="total-yearly-emission">
                 <h2>Total Carbon Emission for {year}:</h2>
-                <p>{totalYearlyEmission.toFixed(1)} kg CO₂</p>
+                <p>{totalYearlyEmission.toFixed(1)} KgCO2e of GHG emissions</p>
               </div>
             </>
           )}

@@ -7,6 +7,7 @@ function TransportationDetails() {
 
   const transportationUrl = "http://localhost:9094/carbonFootprint/transportationDetails";
   const vehicleUrl = "http://localhost:9095/carbonFootprint/vehicles";
+  const statisticsUrl = "http://localhost:9098/carbonFootprint/statistics";
   const token = sessionStorage.getItem("token");
 
   const { transportationData, setTransportationData } = useContext(FormContext);
@@ -129,9 +130,31 @@ function TransportationDetails() {
       
     }
   };
+  
   const handleDiscard = () => {
-    navigate('/userHomePage'); 
+    fetch(statisticsUrl + "/deleteByStatisticsId/" + sessionStorage.getItem("statisticsId"), {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log("Deletion successful");
+          return res.json(); // Only if your endpoint returns a JSON response
+        } else {
+          throw new Error("Failed to delete resource");
+        }
+      })
+      .then((resdata) => {
+        console.log(resdata);
+        sessionStorage.removeItem("statisticsId");
+        sessionStorage.removeItem("transportationDetailsId");
+        navigate('/userHomePage'); // Navigate only on success
+      })
+      .catch((error) => {
+        console.error("Error during deletion:", error);
+      });
   };
+  
 
   return (
     <div className='transportation-container'>

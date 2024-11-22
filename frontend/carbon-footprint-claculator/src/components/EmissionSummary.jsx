@@ -180,13 +180,13 @@ function EmissionSummary() {
     const bulbDays = Math.round(total / 0.6); // 100-watt bulb emits ~0.6kg CO₂/day
 
     if (total > 500) {
-      setInsight(`Your total emissions of ${total} kg CO₂ are quite high! To offset this, you'd need to plant approximately ${treesNeeded} trees, or avoid driving a car for ${kmDriven} km. Consider switching to renewable energy and reducing waste.`);
+      setInsight(`Your total emissions of ${total} KgCO₂e of GHG emissions are quite high! To offset this, you'd need to plant approximately ${treesNeeded} trees, or avoid driving a car for ${kmDriven} km. Consider switching to renewable energy and reducing waste.`);
     } else if (waste > houseEnergy && waste > transportation) {
-      setInsight(`Waste emissions are your largest contributor at ${waste} kg CO₂. This is equivalent to leaving a 100-watt bulb on for ${bulbDays} days. Focus on waste reduction and recycling.`);
+      setInsight(`Waste emissions are your largest contributor at ${waste} KgCO₂e of GHG emissions. This is equivalent to leaving a 100-watt bulb on for ${bulbDays} days. Focus on waste reduction and recycling.`);
     } else if (houseEnergy > transportation && houseEnergy > waste) {
-      setInsight(`House energy emissions of ${houseEnergy} kg CO₂ are the largest contributor. This would require planting ${Math.round(houseEnergy / 21)} trees to offset. Consider switching to renewable energy sources.`);
+      setInsight(`House energy emissions of ${houseEnergy} KgCO₂e of GHG emissions are the largest contributor. This would require planting ${Math.round(houseEnergy / 21)} trees to offset. Consider switching to renewable energy sources.`);
     } else {
-      setInsight(`Transportation emissions of ${transportation} kg CO₂ are the largest contributor. This is equivalent to driving a car for ${Math.round(transportation / 0.25)} km. Consider opting for public transport or carpooling.`);
+      setInsight(`Transportation emissions of ${transportation} KgCO₂e of GHG emissions are the largest contributor. This is equivalent to driving a car for ${Math.round(transportation / 0.25)} km. Consider opting for public transport or carpooling.`);
     }
   };
 
@@ -197,7 +197,7 @@ function EmissionSummary() {
     const annualBulbDays = Math.round(annualTotal / 0.6);
 
     setAnnualInsight(`
-      Over the course of a year, your estimated carbon footprint totals ${annualTotal} kg CO₂.
+      Over the course of a year, your estimated carbon footprint totals ${annualTotal}KgCO₂e of GHG emissions.
       - 🌳 This would require planting approximately ${annualTrees} trees to offset.
       - 🚗 It's equivalent to driving a car for ${annualKmDriven} km.
       - 💡 It's like keeping a 100-watt bulb on for ${annualBulbDays} days.
@@ -242,10 +242,10 @@ function EmissionSummary() {
       <div className="emission-summary-container">
         <h2>Emission Summary</h2>
         <div className="emission-details">
-          <p><strong>House Energy Emission:</strong> {emissions.houseEnergy} kg CO2</p>
-          <p><strong>Waste Emission:</strong> {emissions.waste} kg CO2</p>
-          <p><strong>Transportation Emission:</strong> {emissions.transportation} kg CO2</p>
-          <p><strong>Total Emission:</strong> {totalEmission} kg CO2</p>
+          <p><strong>House Energy Emission:</strong> {emissions.houseEnergy} KgCO₂e of GHG emissions</p>
+          <p><strong>Waste Emission:</strong> {emissions.waste} KgCO₂e of GHG emissions</p>
+          <p><strong>Transportation Emission:</strong> {emissions.transportation} KgCO₂e of GHG emissions</p>
+          <p><strong>Total Emission:</strong> {totalEmission} KgCO₂e of GHG emissions</p>
         </div>
         <div className="emission-insight">
           <h3>Monthly Insight</h3>

@@ -81,6 +81,17 @@ public class WasteDetailsService {
         return wasteDetailsRepository.save(wasteDetails);
     }
 
+    public WasteDetails deleteByWasteId(String id){
+        WasteDetails wasteDetails = wasteDetailsRepository.findById(id).orElse(null);
+        if(wasteDetails != null){
+            wasteDetailsRepository.deleteById(id);
+            return wasteDetails;
+        }
+        else{
+            return null;
+        }
+    }
+
     public void calculateTotalSavedEmission(WasteDetails wasteDetails) {
 
         double foodEmission=0.0;

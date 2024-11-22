@@ -7,6 +7,8 @@ function HouseEnergyDetails() {
 
   const houseEnergyUrl = "http://localhost:9097/carbonFootprint/houseEnergy";
   const statisticsUrl = "http://localhost:9098/carbonFootprint/statistics";
+  const transportationUrl = "http://localhost:9094/carbonFootprint/transportationDetails";
+  const wasteUrl = "http://localhost:9096/carbonFootprint/waste";
   const token = sessionStorage.getItem("token");
 
   const navigate = useNavigate();
@@ -52,8 +54,74 @@ function HouseEnergyDetails() {
       navigate("/summary")
     });
   };
+
   const handleDiscard = () => {
-    navigate('/userHomePage'); 
+    fetch(statisticsUrl + "/deleteByStatisticsId/" + sessionStorage.getItem("statisticsId"), {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log("Deletion successful");
+          return res.json(); // Only if your endpoint returns a JSON response
+        } else {
+          throw new Error("Failed to delete resource");
+        }
+      })
+      .then((resdata) => {
+        console.log(resdata);
+        sessionStorage.removeItem("statisticsId");
+
+
+        fetch(transportationUrl + "/deleteTransportationDetails/" + sessionStorage.getItem("transportationDetailsId"), {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        })
+          .then((res) => {
+            if (res.ok) {
+              console.log("Deletion successful");
+              return res.json(); // Only if your endpoint returns a JSON response
+            } else {
+              throw new Error("Failed to delete resource");
+            }
+          })
+          .then((resdata) => {
+            console.log(resdata);
+            navigate('/userHomePage'); // Navigate only on success
+          })
+          .catch((error) => {
+            console.error("Error during deletion:", error);
+          });
+      
+        sessionStorage.removeItem("transportationDetailsId");
+
+
+        fetch(wasteUrl + "/deleteByWasteId/" + sessionStorage.getItem("wasteId"), {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        })
+          .then((res) => {
+            if (res.ok) {
+              console.log("Deletion successful");
+              return res.json(); // Only if your endpoint returns a JSON response
+            } else {
+              throw new Error("Failed to delete resource");
+            }
+          })
+          .then((resdata) => {
+            console.log(resdata);
+            navigate('/userHomePage'); // Navigate only on success
+          })
+          .catch((error) => {
+            console.error("Error during deletion:", error);
+          });
+        sessionStorage.removeItem("wasteId");
+        //sessionStorage.removeItem("houseId");
+        navigate('/userHomePage'); // Navigate only on success
+      })
+      .catch((error) => {
+        console.error("Error during deletion:", error);
+      });
   };
 
 

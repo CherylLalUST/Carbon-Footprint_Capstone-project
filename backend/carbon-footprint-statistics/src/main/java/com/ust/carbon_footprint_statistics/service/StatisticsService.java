@@ -97,5 +97,16 @@ public class StatisticsService {
     public List<Statistics> getStatisticsByUserDetailsId(String userDetailsId){
         return statisticsRepo.findByUserDetailsId(userDetailsId);
     }
+
+    public Statistics deleteByStatisticsId(String statisticsId){
+        Statistics statistics = statisticsRepo.findById(statisticsId).orElse(null);
+        if(statistics != null){
+            statisticsRepo.deleteById(statisticsId);
+            return statistics;
+        }
+        else{
+            return null;
+        }
+    }
 }
 

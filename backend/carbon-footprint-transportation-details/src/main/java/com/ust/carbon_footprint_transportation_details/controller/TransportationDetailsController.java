@@ -51,7 +51,7 @@ public class TransportationDetailsController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No records found for given ID.");
     }
 
-    @DeleteMapping("/deleteTransportationDetails")
+    @DeleteMapping("/deleteTransportationDetails/{id}")
     public ResponseEntity<?> deleteTransportationDetails(@PathVariable String id){
         TransportationDetails returnedTransportationDetails = transportationDetailsService.deleteTransportationDetails(id);
         if(returnedTransportationDetails != null){

@@ -7,6 +7,7 @@ const CarbonEmissionModal = ({ isOpen, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
+        
         <h2>What is Carbon Emission?</h2>
         <p>
           Carbon Emission refers to the release of carbon dioxide (CO2) into the atmosphere, primarily due to human activities like burning fossil fuels, industrial production, and deforestation. These emissions contribute to climate change by trapping heat in the atmosphere.

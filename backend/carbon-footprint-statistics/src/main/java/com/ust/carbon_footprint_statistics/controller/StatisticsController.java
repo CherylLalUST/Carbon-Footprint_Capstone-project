@@ -48,5 +48,13 @@ public class StatisticsController {
         List<Statistics> statistics = statisticsService.getStatisticsByUserDetailsId(userDetailsId);
         return ResponseEntity.status(HttpStatus.OK).body(statistics);
     }
-
+    
+    @DeleteMapping("/deleteByStatisticsId/{statisticsId}")
+    public ResponseEntity<?> deleteByStatisticsId(@PathVariable String statisticsId){
+        Statistics returnedStatisticsDetails = statisticsService.deleteByStatisticsId(statisticsId);
+        if(returnedStatisticsDetails != null){
+            return ResponseEntity.status(HttpStatus.OK).body(returnedStatisticsDetails);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No records found for given ID.");
+    }
 }

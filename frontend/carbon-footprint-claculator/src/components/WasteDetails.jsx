@@ -6,6 +6,8 @@ import React, { useContext, useState } from 'react';
 function WasteDetails() {
 
   const wasteUrl = "http://localhost:9096/carbonFootprint/waste";
+  const statisticsUrl = "http://localhost:9098/carbonFootprint/statistics";
+  const transportationUrl = "http://localhost:9094/carbonFootprint/transportationDetails";
   const token = sessionStorage.getItem("token");
 
   const {wasteData, setWasteData} = useContext(FormContext);
@@ -64,7 +66,52 @@ function WasteDetails() {
   };
 
   const handleDiscard = () => {
-    navigate('/userHomePage'); 
+    fetch(statisticsUrl + "/deleteByStatisticsId/" + sessionStorage.getItem("statisticsId"), {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log("Deletion successful");
+          return res.json(); // Only if your endpoint returns a JSON response
+        } else {
+          throw new Error("Failed to delete resource");
+        }
+      })
+      .then((resdata) => {
+        console.log(resdata);
+        sessionStorage.removeItem("statisticsId");
+
+        
+          fetch(transportationUrl + "/deleteByStatisticsId/" + sessionStorage.getItem("transportationDetailsId"), {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+          })
+            .then((res) => {
+              if (res.ok) {
+                console.log("Deletion successful");
+                return res.json(); // Only if your endpoint returns a JSON response
+              } else {
+                throw new Error("Failed to delete resource");
+              }
+            })
+            .then((resdata) => {
+              console.log(resdata);
+              navigate('/userHomePage'); // Navigate only on success
+            })
+            .catch((error) => {
+              console.error("Error during deletion:", error);
+            });
+        
+
+
+        sessionStorage.removeItem("transportationDetailsId");
+        //sessionStorage.removeItem("wasteId");
+        navigate('/userHomePage'); // Navigate only on success
+      })
+      .catch((error) => {
+        console.error("Error during deletion:", error);
+      });
   };
 
   return (
