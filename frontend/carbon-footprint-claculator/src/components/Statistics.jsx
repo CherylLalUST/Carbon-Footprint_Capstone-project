@@ -58,6 +58,7 @@ function Statistics() {
 
   function handleTrackEmissions(){
     if (isTrackedThisMonth) return;
+    sessionStorage.removeItem("statisticsId");
     fetch(statisticsUrl + "/addDetails", {
       method: "POST",
       body: JSON.stringify({userDetailsId : userDetails.userDetailsId}),

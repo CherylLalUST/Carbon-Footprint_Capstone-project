@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormContext } from "../FormContext";
 import '../css/TransportationDetails.css';
@@ -18,6 +18,17 @@ function TransportationDetails() {
   const {formErrors, setFormErrors} = useContext(FormContext);
   const navigate = useNavigate();
   let [displayFlag, setDisplayFlag] = useState(false);
+
+  useEffect(() => {
+  const statisticsId = sessionStorage.getItem("statisticsId");
+  setTransportationData({
+    ...transportationData, statisticsId: sessionStorage.getItem("statisticsId"),});
+  if (!statisticsId) {
+    // Optionally, navigate back to the starting page or create a new statistics entry.
+    console.warn("No statisticsId found. Redirecting...");
+    navigate('/userHomePage');
+  }
+}, []);
 
   const handleVehicleCountChange = (e) => {
     const count = parseInt(e.target.value, 10);
@@ -147,7 +158,7 @@ function TransportationDetails() {
       .then((resdata) => {
         console.log(resdata);
         sessionStorage.removeItem("statisticsId");
-        sessionStorage.removeItem("transportationDetailsId");
+        //sessionStorage.removeItem("transportationDetailsId");
         navigate('/userHomePage'); // Navigate only on success
       })
       .catch((error) => {
