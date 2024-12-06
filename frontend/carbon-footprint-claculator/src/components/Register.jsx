@@ -4,7 +4,6 @@ import '../css/Register.css';
 
 export default function Register() {
     const [errorRegister, setErrorRegister] = useState("");
-    // change this to gateway port once integrated
     const baseUrl = "http://localhost:9091/carbonFootprint/authentication";
     let navigate = useNavigate();
 
@@ -21,12 +20,10 @@ export default function Register() {
     });
 
     function handleFormChange(event) {
-        console.log(event);
         setUserCredentialsErrorData({
             ...userCredentialsErrorData,
             [event.target.name]: event.target.validity.valid,
         });
-        console.log(event);
         setUserCredentials({ ...userCredentials, [event.target.name]: event.target.value });
     }
 
@@ -34,7 +31,6 @@ export default function Register() {
 
     async function handleRegister(event) {
         event.preventDefault();
-        // Handle registration logic here
         let response;
         try {
             response = await fetch(baseUrl + "/register",
@@ -50,12 +46,8 @@ export default function Register() {
             let data = await response.json();
             navigate("/user/" + userCredentials.username);
         } else {
-            console.log("error...", response.status, response);
             setErrorRegister("Username already exists!")
         }
-        //console.log(response);
-
-        //console.log("Username:", userCredentials.username, "Password:", userCredentials.password);
     };
 
     return (

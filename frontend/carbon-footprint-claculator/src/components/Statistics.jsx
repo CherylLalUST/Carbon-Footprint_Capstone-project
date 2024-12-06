@@ -10,7 +10,6 @@ function Statistics() {
   const [userStatisticsData, setUserStatisticsData] = useState();
   const [isTrackedThisMonth, setIsTrackedThisMonth] = useState(false);
   let username = sessionStorage.getItem("username");
-  console.log("username : " + username);
   const userDetailsUrl = "http://localhost:9092/carbonFootprint/userDetails";
   const statisticsUrl = "http://localhost:9098/carbonFootprint/statistics";
   const token = sessionStorage.getItem("token");
@@ -19,18 +18,14 @@ function Statistics() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user details from the backend
     fetch(userDetailsUrl + "/getUserDetailsByUsername/" + username, {
       method: "GET",
       headers: { "Authorization": `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((userDetailsData) => {
-        console.log("userDetailsData : ", userDetailsData);
         sessionStorage.setItem('userDetails', JSON.stringify(userDetailsData));
-        // put userDEtailsData in state variable userDetails
         setUserDetails({ ...userDetailsData });
-        //
         fetch(userDetailsUrl + "/getStatisticsByUserDetailsId/" + userDetailsData.userDetailsId, {
           method: "GET",
           headers: { "Authorization": `Bearer ${token}` },
@@ -38,10 +33,9 @@ function Statistics() {
         .then((res) => res.json())
         .then((statData) => {
           setUserStatisticsData({...statData});
-          console.log(statData);
-          // Check if emissions have already been tracked for the current month
+
         const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1; // Months are 0-indexed
+        const currentMonth = currentDate.getMonth() + 1;
         const currentYear = currentDate.getFullYear();
 
         const trackedThisMonth = (statData.statisticsResponses || []).some((stat) => {
@@ -67,7 +61,6 @@ function Statistics() {
     .then((res) => res.json())
     .then((data) => {
       sessionStorage.setItem("statisticsId",data.statisticsId);
-      console.log(sessionStorage.getItem("statisticsId"));
       navigate('/transportation');
     });
     

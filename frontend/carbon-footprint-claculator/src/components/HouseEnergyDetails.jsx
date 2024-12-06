@@ -13,7 +13,6 @@ function HouseEnergyDetails() {
 
   const navigate = useNavigate();
   const {houseEnergyData, setHouseEnergyData} = useContext(FormContext);
-  console.log(houseEnergyData.statisticsId);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,15 +24,15 @@ function HouseEnergyDetails() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted Energy Usage:', houseEnergyData);
+    
     const updatedHouseData = { 
       ...houseEnergyData,
       statisticsId: sessionStorage.getItem("statisticsId"),
       houseElectricity: houseEnergyData.houseElectricity || 0,
       houseNaturalGas: houseEnergyData.houseNaturalGas * 28 || 0,
     };
-    console.log('Updated House Energy Data:', updatedHouseData);
-    // Code to send data to backend or handle it within the app
+    
+    
     fetch(houseEnergyUrl + "/addDetails", {
       method: "POST",
       body: JSON.stringify(updatedHouseData),
@@ -42,7 +41,7 @@ function HouseEnergyDetails() {
     .then((res) => res.json())
     .then((houseData) => {
       sessionStorage.setItem("houseId",houseData.houseId);
-      console.log("house id: " + sessionStorage.getItem("houseId"));
+      
       fetch(statisticsUrl + "/getFullDetailsByStatisticsId/" + sessionStorage.getItem("statisticsId"),{
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` },
@@ -62,14 +61,12 @@ function HouseEnergyDetails() {
     })
       .then((res) => {
         if (res.ok) {
-          console.log("Deletion successful");
           return res.json(); // Only if your endpoint returns a JSON response
         } else {
           throw new Error("Failed to delete resource");
         }
       })
       .then((resdata) => {
-        console.log(resdata);
         sessionStorage.removeItem("statisticsId");
 
 
@@ -79,15 +76,13 @@ function HouseEnergyDetails() {
         })
           .then((res) => {
             if (res.ok) {
-              console.log("Deletion successful");
-              return res.json(); // Only if your endpoint returns a JSON response
+              return res.json();
             } else {
               throw new Error("Failed to delete resource");
             }
           })
           .then((resdata) => {
-            console.log(resdata);
-            navigate('/userHomePage'); // Navigate only on success
+            navigate('/userHomePage');
           })
           .catch((error) => {
             console.error("Error during deletion:", error);
@@ -102,22 +97,19 @@ function HouseEnergyDetails() {
         })
           .then((res) => {
             if (res.ok) {
-              console.log("Deletion successful");
-              return res.json(); // Only if your endpoint returns a JSON response
+              return res.json();
             } else {
               throw new Error("Failed to delete resource");
             }
           })
           .then((resdata) => {
-            console.log(resdata);
-            navigate('/userHomePage'); // Navigate only on success
+            navigate('/userHomePage');
           })
           .catch((error) => {
             console.error("Error during deletion:", error);
           });
         sessionStorage.removeItem("wasteId");
-        //sessionStorage.removeItem("houseId");
-        navigate('/userHomePage'); // Navigate only on success
+        navigate('/userHomePage');
       })
       .catch((error) => {
         console.error("Error during deletion:", error);

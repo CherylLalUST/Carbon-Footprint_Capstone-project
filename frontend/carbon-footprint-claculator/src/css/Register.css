@@ -5,7 +5,6 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    /* Center the container vertically and horizontally */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,7 +14,7 @@
 .register-form {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Ensure the form takes up full container width */
+    width: 100%;
 }
 
 .register-form label {
@@ -62,7 +61,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Make the container take up the full viewport height */
+    height: 100vh;
     margin: 0;
     background-image: url(https://static01.nyt.com/images/2019/05/07/smarter-living/07carbonfootprint-slide-SUBX/carbonfootprint-slide-SUBX-jumbo.jpg);
     background-size: cover;
@@ -73,8 +72,8 @@ body {
 }
 
 .error-message {
-    color: #dc3545; /* Bootstrap's 'danger' color */
-    font-size: 0.875rem; /* Equivalent to .small class */
-    font-weight: 400; /* Regular weight for error text */
-    margin-top: 0.25rem; /* Small space above the message */
+    color: #dc3545;
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin-top: 0.25rem;
 }

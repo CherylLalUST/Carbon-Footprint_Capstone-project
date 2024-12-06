@@ -23,43 +23,14 @@ export default function Login() {
     });
 
     function handleFormChange(event) {
-        console.log(event);
+        
         setUserCredentialsErrorData({
             ...userCredentialsErrorData,
             [event.target.name]: event.target.validity.valid,
         });
-        console.log(event);
+        
         setUserCredentials({ ...userCredentials, [event.target.name]: event.target.value });
     }
-
-
-    // --------------------------------------------
-    // change navigation once components are added
-    // --------------------------------------------
-    
-    // function handleLogin(event) {
-    //     event.preventDefault();
-
-    //     // Generate token
-    //     fetch(baseUrl + "/generateToken", {
-    //         method: "POST",
-    //         body: JSON.stringify(userCredentials),
-    //         headers: { "Content-Type": "application/json" },
-    //     })
-    //         //.then((res) => res.json())
-    //         .then((data) => {
-    //             //setGeneratedToken(data); // Update state with generated token
-    //             console.log(data);
-    //             sessionStorage.setItem("token", data);
-    //             sessionStorage.setItem("username", userCredentials.username);
-    //         navigate("/userHomePage");
-    //         })
-    //         .catch((error) => console.error("Error:", error));
-
-    //     // Optional: Move these logs inside the fetch to ensure accurate logging
-    //     console.log("Username:", userCredentials.username, "Password:", userCredentials.password);
-    //     //console.log("Token generated: ", generatedToken);
-    // }
 
     function handleLogin(event) {
         event.preventDefault();
@@ -73,10 +44,10 @@ export default function Login() {
                 if (!res.ok) {
                     throw new Error("Invalid credentials or user not registered");
                 }
-                //return res.json();
+                
             })
             .then((data) => {
-                console.log(data);
+                
                 sessionStorage.setItem("token", data);
                 sessionStorage.setItem("username", userCredentials.username);
                 navigate("/userHomePage");

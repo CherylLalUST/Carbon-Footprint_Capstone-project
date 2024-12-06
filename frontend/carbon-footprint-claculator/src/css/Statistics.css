@@ -1,5 +1,3 @@
-
-  
   body {
     background-color: #f0f2f5;
     margin: 0;
@@ -90,25 +88,25 @@ h2 {
   
  
   .navbar {
-    position: fixed; /* Fixes the navbar at the top */
+    position: fixed;
     top: 0;
     left: 0;
     height: 80px;
-    width: 100vw; /* Ensures the navbar spans the entire viewport width */
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #4CAF50; /* Navbar background color */
+    background-color: #4CAF50;
     padding: 1em 2em;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensures the navbar stays above other content */
-    box-sizing: border-box; /* Includes padding and border in width/height calculations */
+    z-index: 1000;
+    box-sizing: border-box;
 }
 
 body {
-    margin: 0; /* Removes default margin for body */
-    padding: 0; /* Removes default padding for body */
+    margin: 0;
+    padding: 0;
 }
 
 .navbar-left {
@@ -147,13 +145,12 @@ body {
 }
 
 
-/* Ensures content doesn't overlap the navbar */
 .content-container {
-    margin-top: 80px; /* Adjust based on navbar height */
+    margin-top: 80px;
 }.logout-button {
-    margin-left: 1em; /* Adds space between the country and the button */
+    margin-left: 1em;
     padding: 0.5em 1em;
-    background-color: #ff4d4d; /* Red background for the logout button */
+    background-color: #ff4d4d;
     color: white;
     border: none;
     border-radius: 4px;
@@ -163,7 +160,7 @@ body {
 }
 
 .logout-button:hover {
-    background-color: #e60000; /* Darker red on hover */
+    background-color: #e60000;
 }
 
 
@@ -214,7 +211,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2em; /* Adds spacing below navbar */
+    margin-top: 2em;
 }
 
 /* Responsive Design */

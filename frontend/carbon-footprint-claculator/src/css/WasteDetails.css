@@ -3,22 +3,21 @@
 body {
   background: url(https://static01.nyt.com/images/2019/05/07/smarter-living/07carbonfootprint-slide-SUBX/carbonfootprint-slide-SUBX-jumbo.jpg) no-repeat center center fixed;
   background-size: cover;
-  background-attachment: fixed;  /* Keeps the background fixed when scrolling */
+  background-attachment: fixed;
   min-height: 100vh;
   padding: 0;
 }
 
 .waste-details-container {
-  width: 600px;  /* Fixed width */
-  height: auto; /* Fixed height */
+  width: 600px;
+  height: auto;
   max-height: 80vh;
-  margin: 40px auto;  /* Adds top and bottom margin */
+  margin: 40px auto;
   padding: 20px;
   margin-top: 150px;
-  background-color: rgba(255, 255, 255, 0.9); /* Slight transparency for contrast */
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Allows scrolling if content exceeds the height */
   overflow-y: auto;
 }
 

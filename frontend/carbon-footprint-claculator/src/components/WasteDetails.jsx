@@ -11,7 +11,6 @@ function WasteDetails() {
   const token = sessionStorage.getItem("token");
 
   const {wasteData, setWasteData} = useContext(FormContext);
-  //console.log(wasteData.statsticsId);
 
   const [displayFlag, setDisplayFlag] = useState(false);
   let navigate = useNavigate();
@@ -49,8 +48,7 @@ function WasteDetails() {
       wasteMetalAmount: wasteData.wasteMetalAmount || 0,
       ewasteAmount: wasteData.ewasteAmount || 0,
     };
-    console.log('Waste Data entered:', wasteData);
-    console.log('Waste Data Submitted:', updatedWasteData);
+    
 
     fetch(wasteUrl + "/addDetails", {
       method: "POST",
@@ -72,16 +70,13 @@ function WasteDetails() {
     })
       .then((res) => {
         if (res.ok) {
-          console.log("Deletion successful");
-          return res.json(); // Only if your endpoint returns a JSON response
+          return res.json();
         } else {
           throw new Error("Failed to delete resource");
         }
       })
       .then((resdata) => {
-        console.log(resdata);
         sessionStorage.removeItem("statisticsId");
-
         
           fetch(transportationUrl + "/deleteByStatisticsId/" + sessionStorage.getItem("transportationDetailsId"), {
             method: "DELETE",
@@ -89,15 +84,13 @@ function WasteDetails() {
           })
             .then((res) => {
               if (res.ok) {
-                console.log("Deletion successful");
-                return res.json(); // Only if your endpoint returns a JSON response
+                return res.json();
               } else {
                 throw new Error("Failed to delete resource");
               }
             })
             .then((resdata) => {
-              console.log(resdata);
-              navigate('/userHomePage'); // Navigate only on success
+              navigate('/userHomePage');
             })
             .catch((error) => {
               console.error("Error during deletion:", error);
@@ -106,8 +99,7 @@ function WasteDetails() {
 
 
         sessionStorage.removeItem("transportationDetailsId");
-        //sessionStorage.removeItem("wasteId");
-        navigate('/userHomePage'); // Navigate only on success
+        navigate('/userHomePage');
       })
       .catch((error) => {
         console.error("Error during deletion:", error);

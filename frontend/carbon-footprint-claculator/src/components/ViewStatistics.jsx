@@ -85,7 +85,6 @@ function ViewStatistics() {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
 
-  // Calculate total emission for the year
   const totalYearlyEmission = monthlyData.reduce((sum, data) => sum + data.emission, 0);
 
   return (

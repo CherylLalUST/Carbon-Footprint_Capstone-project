@@ -10,7 +10,7 @@ import Statistics from "./components/Statistics";
 import ViewStatistics from "./components/ViewStatistics";
 import CarbonEmissionModal from "./components/CarbonEmissionModal";
 import Navbar from "./components/Navbar";
-import { FormProvider } from "./FormContext"; // Import the context
+import { FormProvider } from "./FormContext";
 import { ArrowUpCircle } from 'lucide-react';
 import MonthCard from "./components/MonthCard";
 import YearSelector from "./components/YearSelector";
@@ -19,7 +19,6 @@ import EmissionSummary from "./components/EmissionSummary";
 function AppContent() {
   const location = useLocation();
 
-  // Only render Navbar for specified routes
   const shouldDisplayNavbar = ['/transportation', '/waste', '/houseEnergy'].includes(location.pathname);
 
   return (
@@ -47,10 +46,6 @@ function AppContent() {
         
         </Routes>
       </div>
-      
-      
-         
-      {/* </Routes> */}
     </>
   );
 }

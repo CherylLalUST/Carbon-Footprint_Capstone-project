@@ -2,10 +2,10 @@
 
 body {
     background: url(https://static01.nyt.com/images/2019/05/07/smarter-living/07carbonfootprint-slide-SUBX/carbonfootprint-slide-SUBX-jumbo.jpg) no-repeat center center fixed; /* Fixed background */
-    background-size: cover;  /* Ensure background covers entire viewport */
-    min-height: 100vh;  /* Full viewport height */
-    margin: 0;  /* Remove default body margin */
-    padding: 0;  /* Remove default body padding */
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
     z-index: 1;
     overflow: hidden;
   }
@@ -13,16 +13,16 @@ body {
 .transportation-container {
     width: 500px;
     max-height: 80vh; 
-    margin: 70px auto;/* Prevent the card from exceeding viewport height */
+    margin: 70px auto;
     margin-top: 200px;
     padding: 2em;
     background-color: #f7f7f7;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    position: relative;  /* To stack the container above the background */
+    position: relative;
     z-index: 1;
-    overflow-y: auto; /* Enable vertical scrolling for the card */
+    overflow-y: auto;
   }
   
   .form-group {
@@ -52,9 +52,9 @@ body {
   
   /* Add scrollable area for vehicle cards */
   .vehicle-cards {
-      max-height: 400px; /* Set a maximum height for the vehicle cards container */
-      overflow-y: auto; /* Allow vertical scrolling for the cards */
-      padding-right: 10px; /* Ensure there's space for the scrollbar */
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 10px;
   }
   
   .submit-button {

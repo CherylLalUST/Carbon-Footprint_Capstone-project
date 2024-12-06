@@ -11,10 +11,7 @@ function TransportationDetails() {
   const token = sessionStorage.getItem("token");
 
   const { transportationData, setTransportationData } = useContext(FormContext);
-  //const [vehicles, setVehicles] = useState([]);
-  //const [numberOfVehicles, setNumberOfVehicles] = useState(0);
-
-  //const [formErrors, setFormErrors] = useState([]);
+  
   const {formErrors, setFormErrors} = useContext(FormContext);
   const navigate = useNavigate();
   let [displayFlag, setDisplayFlag] = useState(false);
@@ -24,16 +21,12 @@ function TransportationDetails() {
   setTransportationData({
     ...transportationData, statisticsId: sessionStorage.getItem("statisticsId"),});
   if (!statisticsId) {
-    // Optionally, navigate back to the starting page or create a new statistics entry.
-    console.warn("No statisticsId found. Redirecting...");
     navigate('/userHomePage');
   }
 }, []);
 
   const handleVehicleCountChange = (e) => {
     const count = parseInt(e.target.value, 10);
-    // setNumberOfVehicles(count);
-    // setVehicles(Array(count).fill({transportationDetailsId: '', vehicleFuelType: '', vehicleDistanceTravelled: '', vehicleAvgMileage: '', pollutionCleared: true, maintenanceDone: true }));
     
     setTransportationData({
       ...transportationData,
@@ -61,7 +54,7 @@ function TransportationDetails() {
   const handleChange = (index, field, value) => {
     const updatedVehicles = [...transportationData.vehicles];
     updatedVehicles[index] = { ...updatedVehicles[index], [field]: value };
-    //setVehicles(updatedVehicles);
+    
     setTransportationData({
       ...transportationData, vehicles: updatedVehicles,
     });
@@ -81,8 +74,7 @@ function TransportationDetails() {
         ...transportationData, numberOfVehicles: 0, statisticsId: sessionStorage.getItem("statisticsId"),
       });
     }
-    console.log(transportationData);
-    // Check if all vehicle fields are filled out
+    
     const errors = transportationData.vehicles.map(vehicle => ({
       vehicleFuelType: !!vehicle.vehicleFuelType,
       vehicleAvgMileage: !!vehicle.vehicleAvgMileage,
@@ -93,7 +85,7 @@ function TransportationDetails() {
     setFormErrors(errors);
 
     if (isValid) {
-      console.log("if ;", transportationData);
+      
 
       fetch(transportationUrl + "/addTransportationDetails", {
         method: "POST",
@@ -102,7 +94,6 @@ function TransportationDetails() {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Received data:", data.transportationDetailsId);
         sessionStorage.setItem("transportationDetailsId",data.transportationDetailsId);
         let sendVehicles = transportationData.vehicles.map(vehicle => ({
           ...vehicle,
@@ -113,8 +104,7 @@ function TransportationDetails() {
           navigate("/waste");
         }
         else{
-          console.log("send vehicles:");
-          console.log(sendVehicles);
+          
           fetch(vehicleUrl + "/addVehicles", {
             method: "POST",
             body: JSON.stringify(sendVehicles),
@@ -130,14 +120,12 @@ function TransportationDetails() {
             .then((resdata) => {
               console.log(resdata);
             })
-          //   // function to calc total emission
+
           navigate("/waste");
           })
         }
       });
 
-      console.log("number of vehicles submitted successfully:", transportationData.numberOfVehicles);
-      console.log("Form submitted successfully:", transportationData.vehicles);
       
     }
   };
@@ -150,16 +138,14 @@ function TransportationDetails() {
       .then((res) => {
         if (res.ok) {
           console.log("Deletion successful");
-          return res.json(); // Only if your endpoint returns a JSON response
+          return res.json();
         } else {
           throw new Error("Failed to delete resource");
         }
       })
       .then((resdata) => {
-        console.log(resdata);
         sessionStorage.removeItem("statisticsId");
-        //sessionStorage.removeItem("transportationDetailsId");
-        navigate('/userHomePage'); // Navigate only on success
+        navigate('/userHomePage');
       })
       .catch((error) => {
         console.error("Error during deletion:", error);

@@ -31,11 +31,11 @@
  }
 
  .indicator.increase {
-  color: #e53e3e; /* Red for increase */
+  color: #e53e3e;
  }
 
  .indicator.decrease {
-  color: #38a169; /* Green for decrease */
+  color: #38a169;
  }
 
  .icon {
@@ -99,11 +99,11 @@
   margin-top: 10px;
   font-size: 0.9rem;
   color: #666;
-  display: flex; /* Enable flexbox */
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
-  justify-content: center; /* Center items vertically */
-  text-align: center; /* Ensure text is centered */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .individual-emissions p {

@@ -29,7 +29,6 @@ function UserDetailsForm() {
       ...prevData,
       [name]: value,
     }));
-    // Reset error message on input change
     setFormErrors((prevErrors) => ({
       ...prevErrors,
       [name]: !!value,
@@ -38,14 +37,12 @@ function UserDetailsForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validate form fields
     setFormErrors({
       username: !!formData.username,
       numberOfHousehold: !!formData.numberOfHousehold,
       countryName: !!formData.countryName,
     });
     if (formData.username && formData.numberOfHousehold && formData.countryName) {
-      // Handle valid form submission
       fetch(baseUrl + "/addUserDetails", {
         method: "POST",
         body: JSON.stringify(formData),
@@ -53,7 +50,6 @@ function UserDetailsForm() {
       })
       .then((res) => res.json())
       .then(navigate("/login"));
-      console.log("Form submitted successfully:", formData);
     }
   };
 

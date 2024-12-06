@@ -61,7 +61,6 @@ function MonthCard({ month, year, emission, prevEmission, index, details }) {
           ></div>
         </div>
       </div>
-      {/* <button className="submit-button" onClick={() => (navigate("/summary"))}>Monthly Summary</button> */}
     </div>
   );
 }
