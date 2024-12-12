@@ -15,6 +15,7 @@ import { ArrowUpCircle } from 'lucide-react';
 import MonthCard from "./components/MonthCard";
 import YearSelector from "./components/YearSelector";
 import EmissionSummary from "./components/EmissionSummary";
+import Faq from "./components/Faq";
 
 function AppContent() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function AppContent() {
       <div>
       <Routes>
         <Route path="/" element={<Welcome />} />
+        <Route path="/faqs" element={<Faq />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user/:username" element={<UserDetailsForm />} />

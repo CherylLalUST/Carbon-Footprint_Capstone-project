@@ -37,29 +37,29 @@ function EmissionSummary() {
     if(houseResponse.ok){
     setEmissions((prevEmissions) => ({
       ...prevEmissions,
-      houseEnergy: houseResponseData.totalHouseEmission,
+      houseEnergy: houseResponseData.totalHouseEmission.toFixed(2),
     }))}
 
     let wasteResponse = await fetch(wasteUrl + "/getWasteDetailsById/" + wasteId, { headers: { Authorization: `Bearer ${token}` } });
     let wasteResponseData = await wasteResponse.json();
     setEmissions((prevEmissions) => ({
       ...prevEmissions,
-      waste: wasteResponseData.totalWasteEmission,
+      waste: wasteResponseData.totalWasteEmission.toFixed(2),
     }))
 
     let transportationResponse = await fetch(transportationUrl + "/getTransportationDetailsById/" + transportationDetailsId, { headers: { Authorization: `Bearer ${token}` } });
     let transportationResponseData = await transportationResponse.json();
     setEmissions((prevEmissions) => ({
       ...prevEmissions,
-      transportation: transportationResponseData.totalTransportationEmission,
+      transportation: transportationResponseData.totalTransportationEmission.toFixed(2),
     }))
 
     const tE = houseResponseData.totalHouseEmission + wasteResponseData.totalWasteEmission + transportationResponseData.totalTransportationEmission;
-    setTotalEmission(tE);
+    setTotalEmission(tE.toFixed(2));
     
     setEmissions((prevEmissions) => ({
       ...prevEmissions,
-      total: totalEmission,
+      total: totalEmission.toFixed(2),
     }))
 
     generateInsight(houseResponseData.totalHouseEmission, wasteResponseData.totalWasteEmission, transportationResponseData.totalTransportationEmission, tE);
@@ -71,14 +71,14 @@ function EmissionSummary() {
     const kmDriven = Math.round(total / 0.25); // Avg car emits 0.25kg CO₂ per km
     const bulbDays = Math.round(total / 0.6); // 100-watt bulb emits ~0.6kg CO₂/day
 
-    if (total > 500) {
-      setInsight(`Your total emissions of ${total} KgCO₂e of GHG emissions are quite high! To offset this, you'd need to plant approximately ${treesNeeded} trees, or avoid driving a car for ${kmDriven} km. Consider switching to renewable energy and reducing waste.`);
+    if (total <= 900) {
+      setInsight(`Great job! Your carbon emissions are below 900, which is a commendable effort toward sustainability. This shows that you’re making conscious choices to reduce your environmental impact. Keep up the good work and inspire others to follow your example. Together, we can build a greener, healthier planet!`);
     } else if (waste > houseEnergy && waste > transportation) {
-      setInsight(`Waste emissions are your largest contributor at ${waste} KgCO₂e of GHG emissions. This is equivalent to leaving a 100-watt bulb on for ${bulbDays} days. Focus on waste reduction and recycling.`);
+      setInsight(`Your total emissions of ${total} KgCO₂e of GHG emissions are quite high! To offset this, you'd need to plant approximately ${treesNeeded} trees, or avoid driving a car for ${kmDriven} km. Consider switching to renewable energy and reducing waste. Waste emissions are your largest contributor at ${waste} KgCO₂e of GHG emissions. This is equivalent to leaving a 100-watt bulb on for ${bulbDays} days. Focus on waste reduction and recycling.`);
     } else if (houseEnergy > transportation && houseEnergy > waste) {
-      setInsight(`House energy emissions of ${houseEnergy} KgCO₂e of GHG emissions are the largest contributor. This would require planting ${Math.round(houseEnergy / 21)} trees to offset. Consider switching to renewable energy sources.`);
+      setInsight(`Your total emissions of ${total} KgCO₂e of GHG emissions are quite high! To offset this, you'd need to plant approximately ${treesNeeded} trees, or avoid driving a car for ${kmDriven} km. Consider switching to renewable energy and reducing waste. House energy emissions of ${houseEnergy} KgCO₂e of GHG emissions are the largest contributor. This would require planting ${Math.round(houseEnergy / 21)} trees to offset. Consider switching to renewable energy sources.`);
     } else {
-      setInsight(`Transportation emissions of ${transportation} KgCO₂e of GHG emissions are the largest contributor. This is equivalent to driving a car for ${Math.round(transportation / 0.25)} km. Consider opting for public transport or carpooling.`);
+      setInsight(`Your total emissions of ${total} KgCO₂e of GHG emissions are quite high! To offset this, you'd need to plant approximately ${treesNeeded} trees, or avoid driving a car for ${kmDriven} km. Consider switching to renewable energy and reducing waste. Transportation emissions of ${transportation} KgCO₂e of GHG emissions are the largest contributor. This is equivalent to driving a car for ${Math.round(transportation / 0.25)} km. Consider opting for public transport or carpooling.`);
     }
   };
 

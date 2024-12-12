@@ -148,7 +148,7 @@ function HouseEnergyDetails() {
                   checked={houseEnergyData.houseElectricityType === 'Renewable'}
                   onChange={handleChange}
                 />
-                Renewable
+                Green Energy Sources
               </label>
               <label>
                 <input
@@ -158,7 +158,7 @@ function HouseEnergyDetails() {
                   checked={houseEnergyData.houseElectricityType === 'Non-Renewable'}
                   onChange={handleChange}
                 />
-                Non-Renewable
+                Grid Power
               </label>
               <label>
                 <input

@@ -59,3 +59,57 @@
 .read-the-docs:hover {
     color: #3B5323;
 }
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4CAF50;
+    padding: 1em 2em;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.navbar-left {
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.navbar-center {
+    text-align: center;
+    flex-grow: 1;
+    margin-left: -100px;
+}
+
+.navbar-center h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.navbar-center p {
+    font-size: 1em;
+    margin: 0;
+    color: #f9f9f9;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    gap: 10px;
+}
+
+.navbar-right span {
+    margin-left: 0.5em;
+    font-weight: bold;
+}
